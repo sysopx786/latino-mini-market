@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Latino Mini Market</title>
+    <meta
+      name="description"
+      content="Latino Mini Market — grocery, deli, and butcher on Bridge Street in Phoenixville, PA. Hispanic, American, and Brazilian products. SNAP/EBT welcome. Open 9 AM–9 PM daily. 317 Bridge St, (610) 917-8800."
+    />
+    <meta name="theme-color" content="#A31F1A" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="canonical" href="https://sysopx786.github.io/latino-mini-market/" />
+    <meta property="og:title" content="Latino Mini Market" />
+    <meta property="og:image" content="og.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="wrap header-row">
+        <a class="brand" href="#top">
+          <span><b>Latino Mini</b><span>Market</span></span>
+        </a>
+        <nav id="nav" class="nav" aria-label="Primary"></nav>
+        <div id="status" class="status"></div>
+        <button id="menu-btn" class="menu-btn" type="button" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <div id="drawer" class="drawer wrap"></div>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap" id="hero"></section>
+      <ul id="facts" class="facts wrap"></ul>
+      <section class="section wrap grid-2" id="about"></section>
+      <section class="section wrap" id="shop">
+        <div class="card" id="shop-head"></div>
+        <div class="depts" id="depts"></div>
+        <div class="card" id="stock-intro" style="margin-top: 3rem"></div>
+        <div class="stock-grid" id="stock"></div>
+      </section>
+      <section class="section wrap" id="photos">
+        <div class="card" id="photos-head"></div>
+        <ul class="gallery" id="gallery"></ul>
+      </section>
+      <section class="section paper" id="reviews">
+        <div class="wrap">
+          <div id="reviews-head"></div>
+          <div class="grid-2" style="margin-top: 2.5rem; align-items: start">
+            <div class="g-card" id="gcard"></div>
+            <div>
+              <div id="review-list" class="reviews"></div>
+              <button id="more" class="more" type="button"></button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap grid-2" id="hours">
+        <div class="card" id="hours-card"></div>
+        <div class="card" id="visit"></div>
+      </section>
+    </main>
+
+    <footer class="footer wrap" id="footer"></footer>
+    <div class="dock"><div class="dock-row" id="dock"></div></div>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

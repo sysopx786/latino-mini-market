@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sysopx786.github.io/latino-mini-market/sitemap.xml
