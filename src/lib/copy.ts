@@ -68,6 +68,9 @@ export const COPY = {
     reviewsLess: "Fewer reviews",
     photosTitle: "Inside the store",
     photosLede: "Aisles, the butcher case, and what is on the shelf this week.",
+    pantryShotsTitle: "Latin pantry brands",
+    pantryShotsLede:
+      "Goya, Herdez, Embasa, Cacique, Ibarra, La Lechera — the packaged goods and fresh staples neighbors come in for.",
     signAlt: "Latino Mini Market sign — grocery, deli, butcher shop. Hispanic, American, and Brazilian products.",
   },
   es: {
@@ -138,6 +141,9 @@ export const COPY = {
     reviewsLess: "Menos reseñas",
     photosTitle: "Por dentro de la tienda",
     photosLede: "Pasillos, la carnicería y lo que hay en el estante esta semana.",
+    pantryShotsTitle: "Marcas de la despensa",
+    pantryShotsLede:
+      "Goya, Herdez, Embasa, Cacique, Ibarra, La Lechera — abarrotes y lo fresco que busca el barrio.",
     signAlt: "Letrero de Latino Mini Market — abarrotes, deli, carnicería. Productos hispanos, americanos y brasileños.",
   },
   pt: {
@@ -208,6 +214,9 @@ export const COPY = {
     reviewsLess: "Menos avaliações",
     photosTitle: "Dentro da loja",
     photosLede: "Corredores, o talho e o que está na prateleira esta semana.",
+    pantryShotsTitle: "Marcas da despensa",
+    pantryShotsLede:
+      "Goya, Herdez, Embasa, Cacique, Ibarra, La Lechera — mercearia e o fresco que o bairro procura.",
     signAlt: "Letreiro do Latino Mini Market — mercearia, deli, talho. Produtos hispânicos, americanos e brasileiros.",
   },
 } as const;

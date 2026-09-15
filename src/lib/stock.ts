@@ -32,6 +32,7 @@ export const STOCK: StockCategory[] = [
         items: [
           L("Limes", "Limones", "Limões"),
           L("Key limes", "Limones criollos", "Limões-galegos"),
+          L("Garlic", "Ajo", "Alho"),
           L("Tomatillos", "Tomatillos", "Tomatillos"),
           L("Chayote", "Chayote", "Chuchu"),
           L("Roma tomatoes", "Tomate Roma", "Tomate Roma"),
@@ -95,6 +96,7 @@ export const STOCK: StockCategory[] = [
         heading: L("Cheeses & creams", "Quesos y cremas", "Queijos e cremes"),
         items: [
           L("Queso fresco", "Queso fresco", "Queijo fresco"),
+          L("Cacique Crema Mexicana", "Cacique Crema Mexicana", "Cacique Crema Mexicana"),
           L("Cotija", "Cotija", "Cotija"),
           L("Queso blanco", "Queso blanco", "Queijo branco"),
           L("Queso Oaxaca", "Queso Oaxaca", "Queijo Oaxaca"),
@@ -121,6 +123,8 @@ export const STOCK: StockCategory[] = [
           L("Pasilla", "Pasilla", "Pasilla"),
           L("Chipotle", "Chipotle", "Chipotle"),
           L("Chipotles in adobo", "Chipotles en adobo", "Chipotles em adobo"),
+          L("Embasa chipotles in adobo", "Chipotles Embasa en adobo", "Chipotles Embasa em adobo"),
+          L("Dried red chiles", "Chiles secos rojos", "Pimentas secas vermelhas"),
         ],
       },
       {
@@ -129,6 +133,7 @@ export const STOCK: StockCategory[] = [
           L("Pinto beans", "Frijol pinto", "Feijão pinto"),
           L("Black beans", "Frijol negro", "Feijão preto"),
           L("Red beans", "Frijol rojo", "Feijão vermelho"),
+          L("Goya small white beans", "Habichuelas blancas Goya", "Feijão branco Goya"),
           L("Refried beans", "Frijoles refritos", "Feijão refrito"),
           L("Long-grain white rice", "Arroz blanco de grano largo", "Arroz branco de grão longo"),
           L("Yellow rice", "Arroz amarillo", "Arroz amarelo"),
@@ -148,6 +153,7 @@ export const STOCK: StockCategory[] = [
         items: [
           L("Canela (Mexican cinnamon)", "Canela mexicana", "Canela mexicana"),
           L("Achiote paste", "Pasta de achiote", "Pasta de urucum"),
+          L("La Perla / Del Maya achiote", "Achiote La Perla / Del Maya", "Urucum La Perla / Del Maya"),
           L("Cumin seed", "Comino en grano", "Cominhos"),
           L("Whole cloves", "Clavo entero", "Cravinho"),
           L("Piloncillo / panela", "Piloncillo / panela", "Rapadura / panela"),
@@ -157,6 +163,9 @@ export const STOCK: StockCategory[] = [
         heading: L("Salsas & hot sauce", "Salsas y picante", "Molhos e pimenta"),
         items: [
           L("Salsa", "Salsa", "Salsa"),
+          L("Herdez Salsa Verde", "Herdez Salsa Verde", "Herdez Salsa Verde"),
+          L("Goya Naranja Agria marinade", "Marinada Goya Naranja Agria", "Marinada Goya Naranja Agria"),
+          L("Goya fancy pimientos", "Pimientos Goya", "Pimentos Goya"),
           L("Cholula", "Cholula", "Cholula"),
           L("Tapatío", "Tapatío", "Tapatío"),
           L("Valentina", "Valentina", "Valentina"),
@@ -201,6 +210,9 @@ export const STOCK: StockCategory[] = [
           L("Takis", "Takis", "Takis"),
           L("Goya snacks", "Botanas Goya", "Snacks Goya"),
           L("Abuelita / Ibarra chocolate", "Chocolate Abuelita / Ibarra", "Chocolate Abuelita / Ibarra"),
+          L("Ibarra Mexican chocolate", "Chocolate Ibarra", "Chocolate Ibarra"),
+          L("Goya guava paste", "Pasta de guayaba Goya", "Pasta de goiaba Goya"),
+          L("Nestlé La Lechera dulce de leche", "Nestlé La Lechera dulce de leche", "Nestlé La Lechera doce de leite"),
         ],
       },
     ],
@@ -214,6 +226,7 @@ export const STOCK: StockCategory[] = [
         items: [
           L("Corn tortillas", "Tortillas de maíz", "Tortilhas de milho"),
           L("Flour tortillas", "Tortillas de harina", "Tortilhas de farinha"),
+          L("Goya fidelini / fideo", "Fideo Goya / fidelini", "Fideo Goya / fidelini"),
         ],
       },
       {

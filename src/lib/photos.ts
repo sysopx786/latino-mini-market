@@ -48,6 +48,49 @@ export const DEPARTMENTS = [
   },
 ] as const;
 
+export const PRODUCT_SHOTS: Photo[] = [
+  {
+    src: "/images/pantry-salsas.webp",
+    alt: {
+      en: "Goya Naranja Agria, Herdez Salsa Verde, Embasa chipotles, Goya pimientos, and Goya small white beans",
+      es: "Goya Naranja Agria, Herdez Salsa Verde, chipotles Embasa, pimientos Goya y habichuelas blancas Goya",
+      pt: "Goya Naranja Agria, Herdez Salsa Verde, chipotles Embasa, pimentos Goya e feijão branco Goya",
+    },
+  },
+  {
+    src: "/images/pantry-guava.webp",
+    alt: {
+      en: "Goya Naranja Agria and guava paste, Herdez salsa, Embasa chipotles, Goya white beans, cilantro, limes, garlic, and La Perla achiote",
+      es: "Goya Naranja Agria y pasta de guayaba, salsa Herdez, chipotles Embasa, habichuelas Goya, cilantro, limones, ajo y achiote La Perla",
+      pt: "Goya Naranja Agria e pasta de goiaba, salsa Herdez, chipotles Embasa, feijão Goya, coentro, limões, alho e urucum La Perla",
+    },
+  },
+  {
+    src: "/images/pantry-fideo.webp",
+    alt: {
+      en: "Cilantro, garlic, tomatoes, limes, dried red chiles, Goya fideo, and Del Maya achiote",
+      es: "Cilantro, ajo, tomates, limones, chiles secos, fideo Goya y achiote Del Maya",
+      pt: "Coentro, alho, tomates, limões, pimentas secas, fideo Goya e urucum Del Maya",
+    },
+  },
+  {
+    src: "/images/pantry-dulce.webp",
+    alt: {
+      en: "Ibarra Mexican chocolate, Nestlé La Lechera dulce de leche, and Goya guava paste",
+      es: "Chocolate Ibarra, Nestlé La Lechera dulce de leche y pasta de guayaba Goya",
+      pt: "Chocolate Ibarra, Nestlé La Lechera doce de leite e pasta de goiaba Goya",
+    },
+  },
+  {
+    src: "/images/pantry-crema.webp",
+    alt: {
+      en: "Cacique Crema Mexicana, crumbled queso fresco, and corn tortillas",
+      es: "Cacique Crema Mexicana, queso fresco desmoronado y tortillas de maíz",
+      pt: "Cacique Crema Mexicana, queijo fresco esfarelado e tortilhas de milho",
+    },
+  },
+];
+
 export const GALLERY: Photo[] = [
   {
     src: "/images/storefront.webp",

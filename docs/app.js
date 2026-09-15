@@ -1,5 +1,5 @@
 (() => {
-  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, STOCK, STOCK_INTRO } = window.LMM;
+  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, PRODUCT_SHOTS, STOCK, STOCK_INTRO } = window.LMM;
   const OTHER = { en: ["pt", "es"], es: ["pt", "en"], pt: ["en", "es"] };
   const SHORT = { en: "EN", es: "ES", pt: "PT" };
   const NAME = { en: "English", es: "Español", pt: "Português" };
@@ -100,6 +100,12 @@
         <img src="${d.img}" alt="${d.alt[lang]}">
         <div><h3>${t[d.title]}</h3><p class="muted">${t[d.body]}</p></div>
       </article>`).join("");
+
+    document.getElementById("pantry-head").innerHTML =
+      `<h3>${t.pantryShotsTitle}</h3><p class="muted">${t.pantryShotsLede}</p>`;
+    document.getElementById("pantry-shots").innerHTML = PRODUCT_SHOTS.map(
+      (p) => `<li><img src="${p.src}" alt="${p.alt[lang]}"></li>`,
+    ).join("");
 
     document.getElementById("stock-intro").innerHTML =
       `<h3>${STOCK_INTRO.title[lang]}</h3><p class="muted">${STOCK_INTRO.lede[lang]}</p>`;

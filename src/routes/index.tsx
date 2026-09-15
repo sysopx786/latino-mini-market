@@ -4,7 +4,7 @@ import { CreditCard, MapPin, Navigation, Phone, Ticket } from "lucide-react";
 import { BUSINESS, jsonLd, shopNow, WEEKDAYS } from "@/lib/business";
 import { DAY_LABELS, t } from "@/lib/copy";
 import { useLang } from "@/lib/language";
-import { DEPARTMENTS, GALLERY } from "@/lib/photos";
+import { DEPARTMENTS, GALLERY, PRODUCT_SHOTS } from "@/lib/photos";
 import { REVIEWS } from "@/lib/reviews";
 import { GoogleG, GoogleStars } from "@/components/brand-marks";
 import { Button } from "@/components/ui/button";
@@ -128,6 +128,23 @@ function Home() {
                   </div>
                 </article>
               ))}
+            </div>
+            <div className="mt-16">
+              <div className="max-w-xl rounded-xl bg-surface/92 p-6 shadow-border backdrop-blur-sm">
+                <h3 className="font-display text-2xl font-semibold sm:text-3xl">{copy.pantryShotsTitle}</h3>
+                <p className="mt-3 text-muted">{copy.pantryShotsLede}</p>
+              </div>
+              <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                {PRODUCT_SHOTS.map((photo) => (
+                  <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
+                    <img
+                      src={photo.src}
+                      alt={photo.alt[lang]}
+                      className="aspect-[3/4] w-full object-cover object-bottom"
+                    />
+                  </li>
+                ))}
+              </ul>
             </div>
             <StockGuide />
           </section>
