@@ -42,8 +42,11 @@
     lang = next;
     try { localStorage.setItem(KEY, next); } catch (_) {}
     document.documentElement.lang = next;
+    document.documentElement.setAttribute("translate", "no");
     render();
   }
+
+  const srcOf = (s) => String(s || "").replace(/^\//, "");
 
   function stars() {
     return `<span class="stars" aria-hidden="true">${"★".repeat(5)}</span>`;
@@ -84,17 +87,23 @@
       <p class="drawer-meta">${t.footerHours}<br>${t.snap} · ${t.cards}</p>`;
 
     document.getElementById("hero").innerHTML = `
-      ${B.femaleOwned ? `<p class="owned-hero">${t.owned}</p>` : ""}
-      <div class="sign"><img src="images/sign.webp" alt="${t.signAlt}" width="528" height="396"></div>
-      <p class="kicker">${t.kicker}</p>
-      <h1>${t.headline}</h1>
-      <p class="lede">${t.lede}</p>
-      <a class="g-pill" href="#reviews">
-        <img src="data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>')}" alt="" width="24" height="24">
-        <b>${B.rating}</b>
-        ${stars()}
-        <span class="muted">${B.reviewCount} ${t.reviews}</span>
-      </a>`;
+      <div class="hero-grid">
+        <div class="hero-photo">
+          ${B.femaleOwned ? `<p class="owned-hero">${t.owned}</p>` : ""}
+          <div class="sign"><img src="images/sign.webp" alt="${t.signAlt}" width="680" height="510"></div>
+        </div>
+        <div class="hero-copy">
+          <p class="kicker">${t.kicker}</p>
+          <h1>${t.headline}</h1>
+          <p class="lede">${t.lede}</p>
+          <a class="g-pill" href="#reviews">
+            <img src="data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>')}" alt="" width="24" height="24">
+            <b>${B.rating}</b>
+            ${stars()}
+            <span class="muted">${B.reviewCount} ${t.reviews}</span>
+          </a>
+        </div>
+      </div>`;
 
     document.getElementById("facts").innerHTML = `
       <div class="pay-row">
@@ -132,14 +141,14 @@
     document.getElementById("shop-head").innerHTML = `<h2>${t.deptsTitle}</h2><p class="muted">${t.deptsLede}</p>`;
     document.getElementById("depts").innerHTML = DEPARTMENTS.map((d) => `
       <article class="dept">
-        <img src="${d.img}" alt="${d.alt[lang]}">
+        <img src="${srcOf(d.img)}" alt="${d.alt[lang]}">
         <div><h3>${t[d.title]}</h3><p class="muted">${t[d.body]}</p></div>
       </article>`).join("");
 
     document.getElementById("pantry-head").innerHTML =
       `<h3>${t.pantryShotsTitle}</h3><p class="muted">${t.pantryShotsLede}</p>`;
     document.getElementById("pantry-shots").innerHTML = PRODUCT_SHOTS.map(
-      (p) => `<li><img src="${p.src}" alt="${p.alt[lang]}"></li>`,
+      (p) => `<li><img src="${srcOf(p.src)}" alt="${p.alt[lang]}"></li>`,
     ).join("");
 
     document.getElementById("stock-intro").innerHTML =
@@ -155,7 +164,7 @@
 
     document.getElementById("photos-head").innerHTML = `<h2>${t.photosTitle}</h2><p class="muted">${t.photosLede}</p>`;
     document.getElementById("gallery").innerHTML = GALLERY.map(
-      (p) => `<li><img src="${p.src}" alt="${p.alt[lang]}"></li>`,
+      (p) => `<li><img src="${srcOf(p.src)}" alt="${p.alt[lang]}"></li>`,
     ).join("");
 
     document.getElementById("reviews-head").innerHTML =
@@ -225,6 +234,7 @@
   });
 
   document.documentElement.lang = lang;
+  document.documentElement.setAttribute("translate", "no");
   render();
   setInterval(() => render(), 30000);
 })();

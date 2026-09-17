@@ -39,8 +39,30 @@ function Home() {
 
         <main id="main">
           <section className="relative px-4 pb-20 pt-8 sm:px-6 sm:pb-28 sm:pt-12">
-            <div className="mx-auto w-full max-w-6xl">
-              <div className="mx-auto max-w-[16.5rem] sm:max-w-[18.5rem]">
+            <div className="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+              <div className="order-2 max-w-xl lg:order-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-signal">
+                  {copy.kicker}
+                </p>
+                <h1 className="mt-4 font-display text-4xl font-semibold text-primary-fg sm:text-5xl md:text-6xl">
+                  {copy.headline}
+                </h1>
+                <p className="mt-5 text-base leading-relaxed text-primary-fg/85 sm:text-lg">
+                  {copy.lede}
+                </p>
+                <a
+                  href="#reviews"
+                  className="mt-8 flex w-full items-center gap-2.5 rounded-2xl bg-surface px-4 py-3 text-fg shadow-border"
+                >
+                  <GoogleG className="size-6 shrink-0" />
+                  <span className="font-display text-3xl font-semibold leading-none">{BUSINESS.rating}</span>
+                  <GoogleStars count={5} className="flex shrink-0 gap-px" />
+                  <span className="truncate text-sm text-muted">
+                    {BUSINESS.reviewCount} {copy.reviews}
+                  </span>
+                </a>
+              </div>
+              <div className="order-1 max-w-sm lg:order-2 lg:max-w-none">
                 {BUSINESS.femaleOwned ? (
                   <p className="mb-3 inline-flex min-h-11 items-center rounded-full bg-signal px-4 text-sm font-bold uppercase tracking-wide text-signal-fg">
                     {copy.owned}
@@ -50,39 +72,19 @@ function Home() {
                   <img
                     src="/images/sign.webp"
                     alt={copy.signAlt}
-                    width={528}
-                    height={396}
+                    width={680}
+                    height={510}
                     fetchPriority="high"
                     decoding="async"
-                    className="mx-auto h-auto w-full"
+                    className="h-auto w-full"
                   />
                 </div>
               </div>
-              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-signal">
-                {copy.kicker}
-              </p>
-              <h1 className="mt-4 max-w-2xl font-display text-4xl font-semibold text-primary-fg sm:text-5xl md:text-6xl">
-                {copy.headline}
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-primary-fg/85 sm:text-lg">
-                {copy.lede}
-              </p>
-              <a
-                href="#reviews"
-                className="mt-8 flex w-full max-w-xl items-center gap-2.5 rounded-2xl bg-surface px-4 py-3 text-fg shadow-border"
-              >
-                <GoogleG className="size-6 shrink-0" />
-                <span className="font-display text-3xl font-semibold leading-none">{BUSINESS.rating}</span>
-                <GoogleStars count={5} className="flex shrink-0 gap-px" />
-                <span className="truncate text-sm text-muted">
-                  {BUSINESS.reviewCount} {copy.reviews}
-                </span>
-              </a>
             </div>
           </section>
 
           <section className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 rounded-xl bg-surface px-4 py-3.5 shadow-border sm:justify-between sm:px-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 rounded-xl bg-surface px-4 py-3.5 shadow-border">
               <div className="flex items-center gap-3">
                 <img
                   src="/images/pay/snap.webp"
