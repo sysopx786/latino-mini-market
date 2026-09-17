@@ -39,8 +39,8 @@ function Home() {
 
         <main id="main">
           <section className="relative px-4 pb-20 pt-8 sm:px-6 sm:pb-28 sm:pt-12">
-            <div className="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
-              <div className="order-2 max-w-xl lg:order-1">
+            <div className="mx-auto grid w-full max-w-7xl items-center gap-8 md:grid-cols-[1.15fr_0.85fr] md:gap-10 lg:gap-12">
+              <div className="order-2 min-w-0 md:order-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-signal">
                   {copy.kicker}
                 </p>
@@ -62,7 +62,7 @@ function Home() {
                   </span>
                 </a>
               </div>
-              <div className="order-1 max-w-sm lg:order-2 lg:max-w-none">
+              <div className="order-1 mx-auto w-full max-w-sm md:order-2 md:mx-0 md:max-w-none">
                 {BUSINESS.femaleOwned ? (
                   <p className="mb-3 inline-flex min-h-11 items-center rounded-full bg-signal px-4 text-sm font-bold uppercase tracking-wide text-signal-fg">
                     {copy.owned}

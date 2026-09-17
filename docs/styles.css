@@ -30,8 +30,9 @@ h1, h2, h3, h4 { font-family: var(--display); letter-spacing: -0.03em; line-heig
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
-.wrap { max-width: 72rem; margin: 0 auto; padding: 0 1rem; }
+.wrap { width: 100%; max-width: 80rem; margin: 0 auto; padding: 0 1rem; }
 @media (min-width: 640px) { .wrap { padding: 0 1.5rem; } }
+@media (min-width: 1024px) { .wrap { padding: 0 2rem; } }
 .header {
   position: sticky; top: 0; z-index: 40;
   background: rgb(28 18 12 / 0.95);
@@ -74,17 +75,19 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .drawer-actions .dir { background: var(--primary); }
 .drawer-meta { margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--muted); }
 .hero { padding: 2rem 0 3rem; }
-.hero-grid { display: grid; gap: 1.75rem; }
-.hero-photo { max-width: 22rem; }
+.hero-grid { display: grid; gap: 1.75rem; width: 100%; }
+.hero-photo { width: 100%; max-width: 22rem; margin-inline: auto; }
+.hero-copy { min-width: 0; }
 .hero-copy .kicker { margin-top: 0; }
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.9fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.9fr);
     align-items: center;
-    gap: 3rem;
+    gap: 2.5rem;
   }
   .hero-copy { order: 1; }
-  .hero-photo { order: 2; max-width: none; }
+  .hero-photo { order: 2; max-width: none; margin: 0; }
+  .hero h1, .lede, .g-pill { max-width: none; }
 }
 .owned-hero {
   display: inline-flex; align-items: center; min-height: 2.75rem;
@@ -117,13 +120,13 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .pay-cards img { height: 2rem; width: auto; }
 .pay-cards img[alt="American Express"] { width: 2rem; height: 2rem; object-fit: cover; border-radius: 6px; }
 .video-grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
-@media (min-width: 1024px) { .video-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 768px) { .video-grid { grid-template-columns: 1fr 1fr; } }
 .video-grid figure { margin: 0; overflow: hidden; border-radius: 16px; background: var(--fg); }
 .video-grid video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
 .video-grid figcaption { background: var(--surface); color: var(--fg); padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 600; }
 .section { padding: 4rem 0; }
 .grid-2 { display: grid; gap: 1.5rem; }
-@media (min-width: 1024px) { .grid-2 { grid-template-columns: 1fr 1fr; align-items: center; } }
+@media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; align-items: start; } }
 .photo { width: 100%; border-radius: 16px; object-fit: cover; max-height: 28rem; }
 .card { background: var(--surface); color: var(--fg); border-radius: 16px; padding: 1.5rem; }
 .owned {
@@ -141,7 +144,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
 .pills li { background: var(--bg); color: var(--fg); border-radius: 999px; padding: 0.35rem 0.75rem; font-size: 0.875rem; }
 .stock-grid { display: grid; gap: 1rem; margin-top: 1.5rem; align-items: start; }
-@media (min-width: 1024px) { .stock-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 768px) { .stock-grid { grid-template-columns: 1fr 1fr; } }
 .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2.5rem; padding: 0; list-style: none; }
 @media (min-width: 640px) { .gallery { grid-template-columns: 1fr 1fr 1fr; } }
 @media (min-width: 1024px) { .gallery { grid-template-columns: 1fr 1fr 1fr 1fr; } }
