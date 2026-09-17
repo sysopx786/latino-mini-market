@@ -61,10 +61,24 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   50% { box-shadow: 0 0 0 16px rgb(245 197 24 / 0); }
 }
 @keyframes pulse { 50% { opacity: 0.35; transform: scale(0.72); } }
-.drawer { display: none; padding: 0.75rem 1rem 1rem; }
-.drawer.open { display: grid; gap: 0.25rem; }
-.drawer a { padding: 0.75rem; text-decoration: none; border-radius: 8px; background: rgb(255 248 238 / 0.06); }
+.drawer { display: none; padding: 0.75rem 1rem 1.25rem; background: var(--bg); color: var(--fg); }
+.drawer.open { display: grid; gap: 0.15rem; }
+.drawer-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0 -0.25rem 0.25rem; }
+.drawer-bar a, .drawer-bar button { min-height: 2.75rem; font-weight: 700; }
+.drawer a { padding: 0.75rem; text-decoration: none; border-radius: 8px; color: var(--fg); }
+.drawer-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; }
+.drawer-actions a { display: flex; min-height: 2.75rem; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #fff; }
+.drawer-actions .call { background: var(--call); }
+.drawer-actions .sms { background: var(--sms); }
+.drawer-actions .dir { background: var(--primary); }
+.drawer-meta { margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--muted); }
 .hero { padding: 2rem 0 4rem; }
+.owned-hero {
+  display: inline-flex; align-items: center; min-height: 2.75rem;
+  margin: 0 0 0.75rem; padding: 0 1rem; border-radius: 999px;
+  background: var(--signal); color: var(--signal-fg);
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+}
 .sign { max-width: 36rem; margin: 0 auto; border-radius: 12px; overflow: hidden; background: var(--fg); }
 .kicker { margin-top: 2rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--signal); }
 .hero h1 { margin-top: 1rem; max-width: 40rem; font-size: clamp(2rem, 5vw, 3.75rem); }
@@ -76,14 +90,31 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 .g-pill b { font-family: var(--display); font-size: 1.85rem; }
 .stars { color: var(--google); letter-spacing: 1px; }
-.facts { display: grid; grid-template-columns: 1fr 1fr 1fr; overflow: hidden; border-radius: 12px; background: var(--surface); color: var(--fg); }
-.facts li { list-style: none; padding: 0.9rem 0.6rem; text-align: center; font-size: 0.8rem; font-weight: 600; border-right: 1px solid rgb(28 18 12 / 0.08); }
+.facts { border-radius: 12px; background: var(--surface); color: var(--fg); padding: 0.75rem 1rem; }
+.pay-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.5rem; }
+@media (min-width: 640px) { .pay-row { justify-content: space-between; } }
+.pay-ebt { display: flex; align-items: center; gap: 0.75rem; }
+.pay-ebt img { height: 2.5rem; width: auto; }
+.pay-cards { display: flex; align-items: center; gap: 0.4rem; list-style: none; margin: 0; padding: 0; }
+.pay-cards img { height: 2rem; width: auto; }
+.pay-cards img[alt="American Express"] { width: 2rem; height: 2rem; object-fit: cover; border-radius: 6px; }
 .facts { padding: 0; margin: 0; }
-.card { background: var(--surface); color: var(--fg); border-radius: 16px; padding: 1.5rem; }
+.video-grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
+@media (min-width: 1024px) { .video-grid { grid-template-columns: 1fr 1fr; } }
+.video-grid figure { margin: 0; overflow: hidden; border-radius: 16px; background: var(--fg); }
+.video-grid video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.video-grid figcaption { background: var(--surface); color: var(--fg); padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 600; }
 .section { padding: 4rem 0; }
 .grid-2 { display: grid; gap: 1.5rem; }
 @media (min-width: 1024px) { .grid-2 { grid-template-columns: 1fr 1fr; align-items: center; } }
 .photo { width: 100%; border-radius: 16px; object-fit: cover; max-height: 28rem; }
+.card { background: var(--surface); color: var(--fg); border-radius: 16px; padding: 1.5rem; }
+.owned {
+  display: inline-flex; align-items: center; min-height: 2.75rem;
+  margin: 0 0 0.75rem; padding: 0 1rem; border-radius: 999px;
+  background: var(--surface); color: var(--fg); font-size: 0.875rem; font-weight: 700;
+}
+.about-photo { margin: 0; }
 .depts { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
 @media (min-width: 640px) { .depts { grid-template-columns: 1fr 1fr; } }
 .dept { overflow: hidden; border-radius: 16px; background: var(--surface); color: var(--fg); }

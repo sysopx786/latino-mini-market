@@ -1,5 +1,5 @@
 (() => {
-  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, PRODUCT_SHOTS, STOCK, STOCK_INTRO } = window.LMM;
+  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, PRODUCT_SHOTS, STOCK, STOCK_INTRO, SERVICES } = window.LMM;
   const OTHER = { en: ["pt", "es"], es: ["pt", "en"], pt: ["en", "es"] };
   const SHORT = { en: "EN", es: "ES", pt: "PT" };
   const NAME = { en: "English", es: "Español", pt: "Português" };
@@ -63,14 +63,28 @@
 
     document.getElementById("nav").innerHTML = [
       ["#shop", t.navShop],
+      ["#stock", t.navStock],
       ["#photos", t.navPhotos],
       ["#reviews", t.navReviews],
       ["#hours", t.navHours],
       ["#visit", t.navVisit],
     ].map(([href, label]) => `<a href="${href}">${label}</a>`).join("");
-    document.getElementById("drawer").innerHTML = document.getElementById("nav").innerHTML;
+    document.getElementById("drawer").innerHTML =
+      `<div class="drawer-bar">
+        <a href="#top" data-close>${t.navHome}</a>
+        <button type="button" data-close>${t.closeMenu}</button>
+      </div>` +
+      document.getElementById("nav").innerHTML +
+      `<div class="drawer-actions">
+        <a class="act call" href="tel:${B.phoneTel}">${t.call}</a>
+        <a class="act sms" href="sms:${B.phoneTel}">${t.text}</a>
+        <a class="act dir" href="${B.mapsDirections}" target="_blank" rel="noreferrer">${t.directions}</a>
+      </div>
+      <p class="drawer-meta">${B.street}<br>${B.city}, ${B.region} ${B.postalCode}</p>
+      <p class="drawer-meta">${t.footerHours}<br>${t.snap} · ${t.cards}</p>`;
 
     document.getElementById("hero").innerHTML = `
+      ${B.femaleOwned ? `<p class="owned-hero">${t.owned}</p>` : ""}
       <div class="sign"><img src="images/sign.webp" alt="${t.signAlt}" width="1200" height="675"></div>
       <p class="kicker">${t.kicker}</p>
       <h1>${t.headline}</h1>
@@ -82,15 +96,36 @@
         <span class="muted">${B.reviewCount} ${t.reviews}</span>
       </a>`;
 
-    document.getElementById("facts").innerHTML =
-      `<li>${t.snap}</li><li>${t.cards}</li><li>${open ? t.openNow : t.closedNow}</li>`;
+    document.getElementById("facts").innerHTML = `
+      <div class="pay-row">
+        <div class="pay-ebt">
+          <img src="images/pay/snap.webp" alt="SNAP">
+          <img src="images/pay/ebt.svg" alt="EBT">
+        </div>
+        <ul class="pay-cards" aria-label="${t.cards}">
+          <li><img src="images/pay/visa.svg" alt="Visa"></li>
+          <li><img src="images/pay/mastercard.svg" alt="Mastercard"></li>
+          <li><img src="images/pay/amex.webp" alt="American Express"></li>
+          <li><img src="images/pay/discover.svg" alt="Discover"></li>
+        </ul>
+      </div>`;
+
+    document.getElementById("video-head").innerHTML = `<h2>${t.videoTitle}</h2>`;
+    document.getElementById("videos").innerHTML = `
+      <figure>
+        <video src="videos/entrance-approach.mp4" poster="images/storefront.webp" controls playsinline muted loop autoplay preload="auto"></video>
+        <figcaption>${t.videoApproach}</figcaption>
+      </figure>
+      <figure>
+        <video src="videos/entrance-walkin.mp4" poster="images/entrance.webp" controls playsinline muted loop autoplay preload="auto"></video>
+        <figcaption>${t.videoWalkin}</figcaption>
+      </figure>`;
 
     document.getElementById("about").innerHTML = `
       <div class="card">
         <p class="kicker" style="color:var(--primary);margin-top:0">${B.name}</p>
         <h2>${t.aboutTitle}</h2>
         <p class="muted" style="margin-top:1rem">${t.aboutBody}</p>
-        ${B.femaleOwned ? `<p style="margin-top:1.25rem;font-size:.9rem">${t.owned}</p>` : ""}
       </div>
       <img class="photo" src="images/storefront.webp" alt="${GALLERY[0].alt[lang]}">`;
 
@@ -113,7 +148,7 @@
       <article class="card">
         <h4>${cat.title[lang]}</h4>
         ${cat.groups.map((g) => `
-          <p class="kicker" style="color:var(--muted);margin:1.1rem 0 .4rem">${g.heading[lang]}</p>
+          ${g.heading[lang] ? `<p class="kicker" style="color:var(--muted);margin:1.1rem 0 .4rem">${g.heading[lang]}</p>` : ""}
           <ul class="pills">${g.items.map((i) => `<li>${i[lang]}</li>`).join("")}</ul>
         `).join("")}
       </article>`).join("");
@@ -148,7 +183,9 @@
     document.getElementById("hours-card").innerHTML = `
       <h2>${t.hoursLabel}</h2>
       <p class="muted">${t.hoursNote}</p>
-      <ol class="hours">${DAY_LABELS[lang].map((d) => `<li><span>${d}</span><span>${t.hoursRange}</span></li>`).join("")}</ol>`;
+      <ol class="hours">${DAY_LABELS[lang].map((d) => `<li><span>${d}</span><span>${t.hoursRange}</span></li>`).join("")}</ol>
+      <p class="kicker" style="color:var(--muted);margin:1.5rem 0 .4rem">${t.servicesTitle}</p>
+      <ul class="pills">${SERVICES.map((i) => `<li>${i[lang]}</li>`).join("")}</ul>`;
     document.getElementById("visit").innerHTML = `
       <h2>${t.visitTitle}</h2>
       <p class="muted">${t.visitBody}</p>
@@ -172,6 +209,11 @@
 
   document.getElementById("menu-btn").addEventListener("click", () => {
     document.getElementById("drawer").classList.toggle("open");
+  });
+  document.getElementById("drawer").addEventListener("click", (e) => {
+    if (e.target.closest("[data-close]") || (e.target.closest("a") && !e.target.closest(".drawer-bar"))) {
+      document.getElementById("drawer").classList.remove("open");
+    }
   });
   document.getElementById("more").addEventListener("click", () => {
     showAll = !showAll;

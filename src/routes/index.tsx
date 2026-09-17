@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
-import { CreditCard, MapPin, Navigation, Phone, Ticket } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Navigation, Phone } from "lucide-react";
 import { BUSINESS, jsonLd, shopNow, WEEKDAYS } from "@/lib/business";
 import { DAY_LABELS, t } from "@/lib/copy";
 import { useLang } from "@/lib/language";
 import { DEPARTMENTS, GALLERY, PRODUCT_SHOTS } from "@/lib/photos";
 import { REVIEWS } from "@/lib/reviews";
+import { SERVICES } from "@/lib/stock";
 import { GoogleG, GoogleStars } from "@/components/brand-marks";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
@@ -39,16 +40,23 @@ function Home() {
         <main id="main">
           <section className="relative px-4 pb-20 pt-8 sm:px-6 sm:pb-28 sm:pt-12">
             <div className="mx-auto w-full max-w-6xl">
-              <div className="mx-auto max-w-xl overflow-hidden rounded-lg bg-fg shadow-border ring-1 ring-primary-fg/20">
-                <img
-                  src="/images/sign.webp"
-                  alt={copy.signAlt}
-                  width={1200}
-                  height={675}
-                  fetchPriority="high"
-                  decoding="async"
-                  className="mx-auto h-auto w-full"
-                />
+              <div className="mx-auto max-w-xl">
+                {BUSINESS.femaleOwned ? (
+                  <p className="mb-3 inline-flex min-h-11 items-center rounded-full bg-signal px-4 text-sm font-bold uppercase tracking-wide text-signal-fg">
+                    {copy.owned}
+                  </p>
+                ) : null}
+                <div className="overflow-hidden rounded-lg bg-fg shadow-border ring-1 ring-primary-fg/20">
+                  <img
+                    src="/images/sign.webp"
+                    alt={copy.signAlt}
+                    width={1200}
+                    height={675}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="mx-auto h-auto w-full"
+                  />
+                </div>
               </div>
               <p className="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-signal">
                 {copy.kicker}
@@ -74,18 +82,86 @@ function Home() {
           </section>
 
           <section className="mx-auto max-w-6xl px-4 sm:px-6">
-            <ul className="grid grid-cols-3 overflow-hidden rounded-xl shadow-border">
-              <Fact icon={<Ticket className="size-4" />} label={copy.snap} />
-              <Fact icon={<CreditCard className="size-4" />} label={copy.cards} />
-              <Fact
-                icon={
-                  <span
-                    className={`size-2 rounded-full ${status.open ? "bg-success" : "bg-muted"}`}
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 rounded-xl bg-surface px-4 py-3.5 shadow-border sm:justify-between sm:px-6">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/images/pay/snap.webp"
+                  alt="SNAP"
+                  className="h-12 w-auto outline-none sm:h-14"
+                />
+                <img
+                  src="/images/pay/ebt.svg"
+                  alt="EBT"
+                  className="h-8 w-auto outline-none sm:h-9"
+                />
+              </div>
+              <ul className="flex items-center gap-1.5 sm:gap-2" aria-label={copy.cards}>
+                <li>
+                  <img src="/images/pay/visa.svg" alt="Visa" className="h-8 w-auto outline-none sm:h-9" />
+                </li>
+                <li>
+                  <img
+                    src="/images/pay/mastercard.svg"
+                    alt="Mastercard"
+                    className="h-8 w-auto outline-none sm:h-9"
                   />
-                }
-                label={status.open ? copy.openNow : copy.closedNow}
-              />
-            </ul>
+                </li>
+                <li>
+                  <img
+                    src="/images/pay/amex.webp"
+                    alt="American Express"
+                    className="h-8 w-8 rounded-md object-cover outline-none sm:h-9 sm:w-9"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="/images/pay/discover.svg"
+                    alt="Discover"
+                    className="h-8 w-auto outline-none sm:h-9"
+                  />
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="entrance" className="scroll-mt-20 mx-auto max-w-6xl px-4 py-10 sm:px-6">
+            <div className="max-w-xl rounded-xl bg-surface/92 p-6 shadow-border backdrop-blur-sm">
+              <h2 className="font-display text-3xl font-semibold sm:text-4xl">{copy.videoTitle}</h2>
+            </div>
+            <div className="mt-6 grid gap-4 lg:grid-cols-2">
+              <figure className="overflow-hidden rounded-xl bg-fg shadow-border">
+                <video
+                  className="aspect-video w-full outline-none"
+                  src="/videos/entrance-approach.mp4"
+                  poster="/images/storefront.webp"
+                  controls
+                  playsInline
+                  muted
+                  loop
+                  autoPlay
+                  preload="auto"
+                />
+                <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
+                  {copy.videoApproach}
+                </figcaption>
+              </figure>
+              <figure className="overflow-hidden rounded-xl bg-fg shadow-border">
+                <video
+                  className="aspect-video w-full outline-none"
+                  src="/videos/entrance-walkin.mp4"
+                  poster="/images/entrance.webp"
+                  controls
+                  playsInline
+                  muted
+                  loop
+                  autoPlay
+                  preload="auto"
+                />
+                <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
+                  {copy.videoWalkin}
+                </figcaption>
+              </figure>
+            </div>
           </section>
 
           <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2">
@@ -95,11 +171,6 @@ function Home() {
               </p>
               <h2 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">{copy.aboutTitle}</h2>
               <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">{copy.aboutBody}</p>
-              {BUSINESS.femaleOwned ? (
-                <p className="mt-6 inline-flex min-h-11 items-center rounded-full bg-fg/5 px-4 text-sm font-medium text-fg">
-                  {copy.owned}
-                </p>
-              ) : null}
             </div>
             <img
               src="/images/storefront.webp"
@@ -189,6 +260,16 @@ function Home() {
                   </li>
                 ))}
               </ol>
+              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                {copy.servicesTitle}
+              </p>
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {SERVICES.map((item) => (
+                  <li key={item.en} className="rounded-full bg-bg px-3 py-1.5 text-sm text-fg">
+                    {item[lang]}
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div id="visit" className="scroll-mt-20 rounded-xl bg-surface/92 p-6 shadow-border backdrop-blur-sm sm:p-8">
@@ -357,38 +438,5 @@ function ReviewsBlock() {
         </div>
       </div>
     </section>
-  );
-}
-
-function Fact({
-  icon,
-  label,
-  href,
-}: {
-  icon: ReactNode;
-  label: string;
-  href?: string;
-}) {
-  const inner = (
-    <>
-      {icon}
-      <span>{label}</span>
-    </>
-  );
-  const className =
-    "flex min-h-16 items-center justify-center gap-2 bg-surface/92 px-4 py-4 text-center text-sm font-medium text-fg backdrop-blur-sm";
-  if (href) {
-    return (
-      <li>
-        <a href={href} target="_blank" rel="noreferrer" className={`${className} hover:bg-surface`}>
-          {inner}
-        </a>
-      </li>
-    );
-  }
-  return (
-    <li>
-      <div className={className}>{inner}</div>
-    </li>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, Phone, X } from "lucide-react";
+import { House, MapPin, Menu, MessageSquare, Navigation, Phone, X } from "lucide-react";
 import { BUSINESS, getShopStatus } from "@/lib/business";
 import { t } from "@/lib/copy";
 import { useLang } from "@/lib/language";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const LINKS = [
   { href: "#shop", key: "navShop" as const },
+  { href: "#stock", key: "navStock" as const },
   { href: "#photos", key: "navPhotos" as const },
   { href: "#reviews", key: "navReviews" as const },
   { href: "#hours", key: "navHours" as const },
@@ -82,7 +83,7 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
-              className="inline-flex h-11 items-center px-3 text-sm font-medium text-primary-fg/70 transition-colors duration-150 hover:text-primary-fg"
+              className="inline-flex h-11 items-center px-2.5 text-sm font-medium text-primary-fg/70 transition-colors duration-150 hover:text-primary-fg"
             >
               {copy[link.key]}
             </a>
@@ -115,18 +116,35 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className={cn("border-t border-primary-fg/10 bg-fg lg:hidden", open && "block")}
+        className={cn(
+          "max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-bg pb-dock text-fg lg:hidden",
+          open && "block",
+        )}
       >
-        <nav className="mx-auto flex max-w-6xl flex-col px-4 py-3" aria-label="Menu">
+        <nav className="mx-auto flex max-w-6xl flex-col px-4 pb-3" aria-label="Menu">
+          <div className="sticky top-0 z-10 -mx-4 mb-1 flex items-center justify-between gap-3 border-b border-border bg-bg px-4">
+            <a
+              href="#top"
+              className="inline-flex min-h-11 items-center gap-2 text-base font-semibold text-fg"
+              onClick={() => setOpen(false)}
+            >
+              <House className="size-4" />
+              {copy.navHome}
+            </a>
+            <button
+              type="button"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-3 text-sm font-semibold text-fg hover:bg-fg/5"
+              onClick={() => setOpen(false)}
+            >
+              <X className="size-4" />
+              {copy.closeMenu}
+            </button>
+          </div>
           {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={
-                link.key === "navReviews"
-                  ? "flex min-h-11 items-center gap-2 text-base font-medium text-sms"
-                  : "flex min-h-11 items-center text-base font-medium text-primary-fg"
-              }
+              className="flex min-h-11 items-center gap-2 text-base font-medium text-fg"
               onClick={() => setOpen(false)}
             >
               {link.key === "navReviews" ? <GoogleG className="size-5 shrink-0" /> : null}
@@ -134,14 +152,48 @@ export function SiteHeader() {
               {link.key === "navReviews" ? <GoogleStars count={5} className="ml-1 flex gap-px" /> : null}
             </a>
           ))}
-          <a
-            href={`tel:${BUSINESS.phoneTel}`}
-            className="mt-2 flex min-h-11 items-center gap-2 text-base font-medium text-primary-fg"
-            onClick={() => setOpen(false)}
-          >
-            <Phone className="size-4" />
-            {copy.callShop} · {BUSINESS.phoneDisplay}
-          </a>
+
+          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-4">
+            <a
+              href={`tel:${BUSINESS.phoneTel}`}
+              className="flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg bg-call px-2 py-2 text-center text-xs font-semibold text-call-fg"
+              onClick={() => setOpen(false)}
+            >
+              <Phone className="size-4" />
+              {copy.call}
+            </a>
+            <a
+              href={`sms:${BUSINESS.phoneTel}`}
+              className="flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg bg-sms px-2 py-2 text-center text-xs font-semibold text-sms-fg"
+              onClick={() => setOpen(false)}
+            >
+              <MessageSquare className="size-4" />
+              {copy.text}
+            </a>
+            <a
+              href={BUSINESS.mapsDirections}
+              target="_blank"
+              rel="noreferrer"
+              className="flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg bg-primary px-2 py-2 text-center text-xs font-semibold text-primary-fg"
+              onClick={() => setOpen(false)}
+            >
+              <Navigation className="size-4" />
+              {copy.directions}
+            </a>
+          </div>
+
+          <p className="mt-4 flex items-start gap-2 text-sm text-muted">
+            <MapPin className="mt-0.5 size-4 shrink-0" />
+            <span>
+              {BUSINESS.street}
+              <br />
+              {BUSINESS.city}, {BUSINESS.region} {BUSINESS.postalCode}
+            </span>
+          </p>
+          <p className="mt-2 text-sm text-muted">{copy.footerHours}</p>
+          <p className="mt-1 pb-2 text-sm text-muted">
+            {copy.snap} · {copy.cards}
+          </p>
         </nav>
       </div>
     </header>

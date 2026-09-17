@@ -220,4 +220,36 @@ export const GALLERY: Photo[] = [
       pt: "Gel Moco de Gorila, feito no México",
     },
   },
+  {
+    src: "/images/stock-jarritos.webp",
+    alt: {
+      en: "Jarritos sodas on ice — pineapple, lime, mandarin, and more",
+      es: "Jarritos en hielo — piña, limón, mandarina y más",
+      pt: "Jarritos no gelo — abacaxi, limão, tangerina e mais",
+    },
+  },
+  {
+    src: "/images/stock-jarritos-shelf.webp",
+    alt: {
+      en: "Jarritos bottles on the drink shelf",
+      es: "Botellas de Jarritos en el estante de bebidas",
+      pt: "Garrafas de Jarritos na prateleira de bebidas",
+    },
+  },
+  {
+    src: "/images/stock-pan-dulce.webp",
+    alt: {
+      en: "Pan dulce — conchas and sweet breads",
+      es: "Pan dulce — conchas y panes dulces",
+      pt: "Pão doce — conchas e pães doces",
+    },
+  },
+  {
+    src: "/images/stock-pao-de-queijo.webp",
+    alt: {
+      en: "Brazilian pão de queijo",
+      es: "Pão de queijo brasileño",
+      pt: "Pão de queijo brasileiro",
+    },
+  },
 ];

@@ -3,7 +3,6 @@ import {
   Cookie,
   CupSoda,
   Flag,
-  House,
   Leaf,
   Wheat,
   type LucideIcon,
@@ -18,14 +17,13 @@ const ICONS: Record<string, LucideIcon> = {
   drinks: CupSoda,
   tortillas: Cookie,
   brazil: Flag,
-  home: House,
 };
 
 export function StockGuide() {
   const lang = useLang();
 
   return (
-    <div id="stock" className="mt-16">
+    <div id="stock" className="mt-16 scroll-mt-20">
       <div className="max-w-2xl rounded-xl bg-surface/92 p-6 shadow-border backdrop-blur-sm sm:p-8">
         <h3 className="font-display text-2xl font-semibold sm:text-3xl">{STOCK_INTRO.title[lang]}</h3>
         <p className="mt-3 text-muted">{STOCK_INTRO.lede[lang]}</p>
@@ -52,17 +50,16 @@ function StockCard({ category }: { category: StockCategory }) {
         {category.title[lang]}
       </h4>
       <div className="mt-5 space-y-5">
-        {category.groups.map((group) => (
-          <div key={group.heading.en}>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-              {group.heading[lang]}
-            </p>
-            <ul className="mt-2 flex flex-wrap gap-2">
+        {category.groups.map((group, i) => (
+          <div key={group.heading.en || category.id + i}>
+            {group.heading.en ? (
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+                {group.heading[lang]}
+              </p>
+            ) : null}
+            <ul className={`flex flex-wrap gap-2 ${group.heading.en ? "mt-2" : ""}`}>
               {group.items.map((item) => (
-                <li
-                  key={item.en}
-                  className="rounded-full bg-bg px-3 py-1.5 text-sm text-fg"
-                >
+                <li key={item.en} className="rounded-full bg-bg px-3 py-1.5 text-sm text-fg">
                   {item[lang]}
                 </li>
               ))}
