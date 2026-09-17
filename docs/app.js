@@ -85,7 +85,7 @@
 
     document.getElementById("hero").innerHTML = `
       ${B.femaleOwned ? `<p class="owned-hero">${t.owned}</p>` : ""}
-      <div class="sign"><img src="images/sign.webp" alt="${t.signAlt}" width="1200" height="675"></div>
+      <div class="sign"><img src="images/sign.webp" alt="${t.signAlt}" width="528" height="396"></div>
       <p class="kicker">${t.kicker}</p>
       <h1>${t.headline}</h1>
       <p class="lede">${t.lede}</p>
@@ -113,11 +113,11 @@
     document.getElementById("video-head").innerHTML = `<h2>${t.videoTitle}</h2>`;
     document.getElementById("videos").innerHTML = `
       <figure>
-        <video src="videos/entrance-approach.mp4" poster="images/storefront.webp" controls playsinline muted loop autoplay preload="auto"></video>
+        <video src="videos/entrance-approach.mp4" poster="images/storefront.webp" controls playsinline preload="metadata"></video>
         <figcaption>${t.videoApproach}</figcaption>
       </figure>
       <figure>
-        <video src="videos/entrance-walkin.mp4" poster="images/entrance.webp" controls playsinline muted loop autoplay preload="auto"></video>
+        <video src="videos/entrance-walkin.mp4" poster="images/entrance.webp" controls playsinline preload="metadata"></video>
         <figcaption>${t.videoWalkin}</figcaption>
       </figure>`;
 

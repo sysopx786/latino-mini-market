@@ -40,7 +40,7 @@ function Home() {
         <main id="main">
           <section className="relative px-4 pb-20 pt-8 sm:px-6 sm:pb-28 sm:pt-12">
             <div className="mx-auto w-full max-w-6xl">
-              <div className="mx-auto max-w-xl">
+              <div className="mx-auto max-w-[16.5rem] sm:max-w-[18.5rem]">
                 {BUSINESS.femaleOwned ? (
                   <p className="mb-3 inline-flex min-h-11 items-center rounded-full bg-signal px-4 text-sm font-bold uppercase tracking-wide text-signal-fg">
                     {copy.owned}
@@ -50,8 +50,8 @@ function Home() {
                   <img
                     src="/images/sign.webp"
                     alt={copy.signAlt}
-                    width={1200}
-                    height={675}
+                    width={528}
+                    height={396}
                     fetchPriority="high"
                     decoding="async"
                     className="mx-auto h-auto w-full"
@@ -136,10 +136,7 @@ function Home() {
                   poster="/images/storefront.webp"
                   controls
                   playsInline
-                  muted
-                  loop
-                  autoPlay
-                  preload="auto"
+                  preload="metadata"
                 />
                 <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
                   {copy.videoApproach}
@@ -152,10 +149,7 @@ function Home() {
                   poster="/images/entrance.webp"
                   controls
                   playsInline
-                  muted
-                  loop
-                  autoPlay
-                  preload="auto"
+                  preload="metadata"
                 />
                 <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
                   {copy.videoWalkin}
