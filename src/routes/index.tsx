@@ -138,7 +138,7 @@ function Home() {
                   poster="/images/storefront.webp"
                   controls
                   playsInline
-                  preload="metadata"
+                  preload="none"
                 />
                 <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
                   {copy.videoApproach}
@@ -151,7 +151,7 @@ function Home() {
                   poster="/images/entrance.webp"
                   controls
                   playsInline
-                  preload="metadata"
+                  preload="none"
                 />
                 <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
                   {copy.videoWalkin}
@@ -171,6 +171,8 @@ function Home() {
             <img
               src="/images/storefront.webp"
               alt={GALLERY[0].alt[lang]}
+              loading="lazy"
+              decoding="async"
               className="h-full max-h-[28rem] w-full rounded-xl object-cover shadow-border"
             />
           </section>
@@ -186,7 +188,7 @@ function Home() {
                   key={dept.title}
                   className="overflow-hidden rounded-xl bg-surface/92 shadow-border backdrop-blur-sm"
                 >
-                  <img src={dept.img} alt={dept.alt[lang]} className="aspect-[4/3] w-full object-cover" />
+                  <img src={dept.img} alt={dept.alt[lang]} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
                   <div className="p-5 sm:p-6">
                     <h3 className="font-display text-xl font-semibold">{copy[dept.title]}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
@@ -207,6 +209,8 @@ function Home() {
                     <img
                       src={photo.src}
                       alt={photo.alt[lang]}
+                      loading="lazy"
+                      decoding="async"
                       className="aspect-[3/4] w-full object-cover object-bottom"
                     />
                   </li>
@@ -224,7 +228,7 @@ function Home() {
             <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {GALLERY.map((photo) => (
                 <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
-                  <img src={photo.src} alt={photo.alt[lang]} className="aspect-square w-full object-cover" />
+                  <img src={photo.src} alt={photo.alt[lang]} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
                 </li>
               ))}
             </ul>
@@ -274,6 +278,8 @@ function Home() {
               <img
                 src="/images/street.webp"
                 alt={GALLERY[1].alt[lang]}
+                loading="lazy"
+                decoding="async"
                 className="mt-6 w-full rounded-xl object-cover shadow-border"
               />
               <p className="mt-6 flex items-start gap-3 text-sm sm:text-base">

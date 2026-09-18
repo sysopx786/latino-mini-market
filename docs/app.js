@@ -47,6 +47,11 @@
   }
 
   const srcOf = (s) => String(s || "").replace(/^\//, "");
+  const esc = (s) =>
+    String(s).replace(/&/g, "\u0026amp;").replace(/"/g, "\u0026quot;").replace(/</g, "\u0026lt;");
+  function imgTag(src, alt, extra) {
+    return `<img src="${srcOf(src)}" alt="${esc(alt)}" decoding="async" ${extra || 'loading="lazy"'}>`;
+  }
 
   function stars() {
     return `<span class="stars" aria-hidden="true">${"★".repeat(5)}</span>`;
@@ -90,7 +95,7 @@
       <div class="hero-grid">
         <div class="hero-photo">
           ${B.femaleOwned ? `<p class="owned-hero">${t.owned}</p>` : ""}
-          <div class="sign"><img src="images/sign.webp" alt="${t.signAlt}" width="680" height="510"></div>
+          <div class="sign">${imgTag("images/sign.webp", t.signAlt, 'fetchpriority="high" width="680" height="510"')}</div>
         </div>
         <div class="hero-copy">
           <p class="kicker">${t.kicker}</p>
@@ -108,25 +113,25 @@
     document.getElementById("facts").innerHTML = `
       <div class="pay-row">
         <div class="pay-ebt">
-          <img src="images/pay/snap.webp" alt="SNAP">
-          <img src="images/pay/ebt.svg" alt="EBT">
+          ${imgTag("images/pay/snap.webp", "SNAP")}
+          ${imgTag("images/pay/ebt.svg", "EBT")}
         </div>
         <ul class="pay-cards" aria-label="${t.cards}">
-          <li><img src="images/pay/visa.svg" alt="Visa"></li>
-          <li><img src="images/pay/mastercard.svg" alt="Mastercard"></li>
-          <li><img src="images/pay/amex.webp" alt="American Express"></li>
-          <li><img src="images/pay/discover.svg" alt="Discover"></li>
+          <li>${imgTag("images/pay/visa.svg", "Visa")}</li>
+          <li>${imgTag("images/pay/mastercard.svg", "Mastercard")}</li>
+          <li>${imgTag("images/pay/amex.webp", "American Express")}</li>
+          <li>${imgTag("images/pay/discover.svg", "Discover")}</li>
         </ul>
       </div>`;
 
     document.getElementById("video-head").innerHTML = `<h2>${t.videoTitle}</h2>`;
     document.getElementById("videos").innerHTML = `
       <figure>
-        <video src="videos/entrance-approach.mp4" poster="images/storefront.webp" controls playsinline preload="metadata"></video>
+        <video src="videos/entrance-approach.mp4" poster="images/storefront.webp" controls playsinline preload="none" title="${esc(t.videoApproach)}"></video>
         <figcaption>${t.videoApproach}</figcaption>
       </figure>
       <figure>
-        <video src="videos/entrance-walkin.mp4" poster="images/entrance.webp" controls playsinline preload="metadata"></video>
+        <video src="videos/entrance-walkin.mp4" poster="images/entrance.webp" controls playsinline preload="none" title="${esc(t.videoWalkin)}"></video>
         <figcaption>${t.videoWalkin}</figcaption>
       </figure>`;
 
@@ -136,19 +141,19 @@
         <h2>${t.aboutTitle}</h2>
         <p class="muted" style="margin-top:1rem">${t.aboutBody}</p>
       </div>
-      <img class="photo" src="images/storefront.webp" alt="${GALLERY[0].alt[lang]}">`;
+      ${imgTag("images/storefront.webp", GALLERY[0].alt[lang], 'class="photo" loading="lazy"')}`;
 
     document.getElementById("shop-head").innerHTML = `<h2>${t.deptsTitle}</h2><p class="muted">${t.deptsLede}</p>`;
     document.getElementById("depts").innerHTML = DEPARTMENTS.map((d) => `
       <article class="dept">
-        <img src="${srcOf(d.img)}" alt="${d.alt[lang]}">
+        ${imgTag(d.img, d.alt[lang])}
         <div><h3>${t[d.title]}</h3><p class="muted">${t[d.body]}</p></div>
       </article>`).join("");
 
     document.getElementById("pantry-head").innerHTML =
       `<h3>${t.pantryShotsTitle}</h3><p class="muted">${t.pantryShotsLede}</p>`;
     document.getElementById("pantry-shots").innerHTML = PRODUCT_SHOTS.map(
-      (p) => `<li><img src="${srcOf(p.src)}" alt="${p.alt[lang]}"></li>`,
+      (p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`,
     ).join("");
 
     document.getElementById("stock-intro").innerHTML =
@@ -164,7 +169,7 @@
 
     document.getElementById("photos-head").innerHTML = `<h2>${t.photosTitle}</h2><p class="muted">${t.photosLede}</p>`;
     document.getElementById("gallery").innerHTML = GALLERY.map(
-      (p) => `<li><img src="${srcOf(p.src)}" alt="${p.alt[lang]}"></li>`,
+      (p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`,
     ).join("");
 
     document.getElementById("reviews-head").innerHTML =
@@ -198,14 +203,22 @@
     document.getElementById("visit").innerHTML = `
       <h2>${t.visitTitle}</h2>
       <p class="muted">${t.visitBody}</p>
-      <img class="photo" style="margin-top:1.25rem" src="images/street.webp" alt="${GALLERY[1].alt[lang]}">
+      ${imgTag("images/street.webp", GALLERY[1].alt[lang], 'class="photo" loading="lazy" style="margin-top:1.25rem"')}
       <p>${B.street}<br>${B.city}, ${B.region} ${B.postalCode}</p>
       <p><a href="tel:${B.phoneTel}">${B.phoneDisplay}</a></p>
       <p><a href="${B.mapsDirections}" target="_blank" rel="noreferrer">${t.directions}</a></p>
       <iframe class="map" title="${t.mapTitle}" src="https://www.openstreetmap.org/export/embed.html?bbox=-75.5218%2C40.1318%2C-75.5098%2C40.1356&layer=mapnik&marker=40.1336%2C-75.5159"></iframe>`;
 
     document.getElementById("footer").innerHTML =
-      `<p>${t.footerHours}</p><p>${t.copyright}</p>`;
+      `<nav class="footer-nav" aria-label="${t.navHome}">
+        <a href="#shop">${t.navShop}</a>
+        <a href="#stock">${t.navStock}</a>
+        <a href="#photos">${t.navPhotos}</a>
+        <a href="#reviews">${t.navReviews}</a>
+        <a href="#hours">${t.navHours}</a>
+        <a href="#visit">${t.navVisit}</a>
+      </nav>
+      <p>${t.footerHours}</p><p>${t.copyright}</p>`;
 
     const langs = OTHER[lang].map(
       (code) => `<button class="circle lang" type="button" data-lang="${code}" aria-label="${NAME[code]}">${FLAG[code]}<span>${SHORT[code]}</span></button>`,
@@ -236,5 +249,14 @@
   document.documentElement.lang = lang;
   document.documentElement.setAttribute("translate", "no");
   render();
-  setInterval(() => render(), 30000);
+  setInterval(() => {
+    const t = COPY[lang];
+    const open = shopOpen();
+    const time = clockLabel(open ? B.closeHour : B.openHour);
+    const el = document.getElementById("status");
+    if (!el) return;
+    el.className = "status" + (open ? "" : " closed");
+    el.innerHTML =
+      `<span class="status-dot"></span><span>${open ? t.open : t.closed}</span><span>${open ? t.closesAt : t.opensAt} ${time}</span>`;
+  }, 30000);
 })();

@@ -38,12 +38,16 @@ export function SiteFooter() {
         </div>
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-primary-fg/50">
-            {copy.hoursLabel}
+            {copy.navShop}
           </p>
-          <p className="mt-3 text-sm">{copy.footerHours}</p>
-          <p className="mt-2 text-sm text-primary-fg/70">
-            {copy.snap} · {copy.cards}
-          </p>
+          <nav className="mt-3 grid gap-1 text-sm" aria-label={copy.navHome}>
+            <a className="min-h-11 inline-flex items-center" href="#shop">{copy.navShop}</a>
+            <a className="min-h-11 inline-flex items-center" href="#stock">{copy.navStock}</a>
+            <a className="min-h-11 inline-flex items-center" href="#photos">{copy.navPhotos}</a>
+            <a className="min-h-11 inline-flex items-center" href="#reviews">{copy.navReviews}</a>
+            <a className="min-h-11 inline-flex items-center" href="#hours">{copy.navHours}</a>
+            <a className="min-h-11 inline-flex items-center" href="#visit">{copy.navVisit}</a>
+          </nav>
         </div>
       </div>
       <div className="border-t border-primary-fg/10">

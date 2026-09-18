@@ -13,6 +13,10 @@ export const BUSINESS = {
   fullAddress: "317 Bridge Street, Phoenixville, PA 19460",
   phoneDisplay: "(610) 917-8800",
   phoneTel: "+16109178800",
+  siteUrl: "https://sysopx786.github.io/latino-mini-market",
+  seoTitle: "Latino Mini Market | Grocery, Deli & Butcher in Phoenixville, PA",
+  seoDescription:
+    "Hispanic, American, and Brazilian grocery on Bridge Street. SNAP/EBT welcome. Fresh produce, carnicería, and imports. Open 9 AM–9 PM daily. 317 Bridge St · (610) 917-8800.",
   rating: 4.6,
   reviewCount: 35,
   ratingBreakdown: [
@@ -89,12 +93,22 @@ export function jsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "GroceryStore",
+    "@id": `${BUSINESS.siteUrl}/#store`,
     name: BUSINESS.name,
-    image: "/images/storefront.webp",
+    legalName: BUSINESS.legalName,
+    alternateName: BUSINESS.dba,
+    url: `${BUSINESS.siteUrl}/`,
+    image: [
+      `${BUSINESS.siteUrl}/images/storefront.webp`,
+      `${BUSINESS.siteUrl}/images/sign.webp`,
+      `${BUSINESS.siteUrl}/og.jpg`,
+    ],
+    logo: `${BUSINESS.siteUrl}/favicon.svg`,
     telephone: BUSINESS.phoneTel,
     priceRange: "$",
     currenciesAccepted: "USD",
-    paymentAccepted: "Cash, Credit Card, SNAP EBT",
+    paymentAccepted: "Cash, Credit Card, Debit Card, SNAP, EBT",
+    servesCuisine: "Latin American",
     address: {
       "@type": "PostalAddress",
       streetAddress: BUSINESS.street,
@@ -108,17 +122,25 @@ export function jsonLd() {
       latitude: 40.1336,
       longitude: -75.5159,
     },
+    hasMap: BUSINESS.mapsSearch,
+    areaServed: {
+      "@type": "City",
+      name: "Phoenixville",
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: BUSINESS.rating,
       reviewCount: BUSINESS.reviewCount,
       bestRating: 5,
+      worstRating: 1,
     },
-    review: REVIEWS.map((review) => ({
+    review: REVIEWS.slice(0, 3).map((review) => ({
       "@type": "Review",
       author: { "@type": "Person", name: review.name },
       reviewBody: review.quote.en,
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
     })),
     openingHoursSpecification: hours,
+    openingHours: "Mo-Su 09:00-21:00",
   };
 }
