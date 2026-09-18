@@ -41,7 +41,7 @@ body {
 #stock { scroll-margin-top: 5rem; }
 #entrance, #shop, #photos, #reviews, #hours {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 900px;
+  contain-intrinsic-size: 1px 2400px;
 }
 h1, h2, h3, h4 { font-family: var(--display); letter-spacing: -0.03em; line-height: 1.15; margin: 0; }
 img { max-width: 100%; display: block; }
@@ -166,6 +166,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 @media (min-width: 640px) { .gallery { grid-template-columns: 1fr 1fr 1fr; } }
 @media (min-width: 1024px) { .gallery { grid-template-columns: 1fr 1fr 1fr 1fr; } }
 .gallery img { aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: 12px; }
+.gallery.tight { margin-top: 1rem; }
+.photos-sub { font-family: var(--display); font-size: 1.65rem; font-weight: 600; margin: 2.5rem 0 0; color: var(--primary-fg); }
 .pantry-shots { grid-template-columns: 1fr 1fr; }
 .pantry-shots img { aspect-ratio: 3/4; object-position: bottom; }
 @media (min-width: 640px) { .pantry-shots { grid-template-columns: 1fr 1fr 1fr; } }

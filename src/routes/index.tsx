@@ -4,7 +4,7 @@ import { MapPin, Navigation, Phone } from "lucide-react";
 import { BUSINESS, jsonLd, shopNow, WEEKDAYS } from "@/lib/business";
 import { DAY_LABELS, t } from "@/lib/copy";
 import { useLang } from "@/lib/language";
-import { DEPARTMENTS, GALLERY, PRODUCT_SHOTS } from "@/lib/photos";
+import { DEPARTMENTS, GALLERY, GALLERY_AISLES, GALLERY_CLOSEUPS, PRODUCT_SHOTS } from "@/lib/photos";
 import { REVIEWS } from "@/lib/reviews";
 import { SERVICES } from "@/lib/stock";
 import { GoogleG, GoogleStars } from "@/components/brand-marks";
@@ -225,8 +225,17 @@ function Home() {
               <h2 className="font-display text-3xl font-semibold sm:text-4xl">{copy.photosTitle}</h2>
               <p className="mt-3 text-muted">{copy.photosLede}</p>
             </div>
-            <ul className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {GALLERY.map((photo) => (
+            <h3 className="mt-10 font-display text-2xl font-semibold text-primary-fg">{copy.photosAislesTitle}</h3>
+            <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {GALLERY_AISLES.map((photo) => (
+                <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
+                  <img src={photo.src} alt={photo.alt[lang]} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
+                </li>
+              ))}
+            </ul>
+            <h3 className="mt-12 font-display text-2xl font-semibold text-primary-fg">{copy.photosCloseTitle}</h3>
+            <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {GALLERY_CLOSEUPS.map((photo) => (
                 <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
                   <img src={photo.src} alt={photo.alt[lang]} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
                 </li>

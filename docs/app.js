@@ -1,5 +1,5 @@
 (() => {
-  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, PRODUCT_SHOTS, STOCK, STOCK_INTRO, SERVICES } = window.LMM;
+  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, GALLERY_AISLES, GALLERY_CLOSEUPS, PRODUCT_SHOTS, STOCK, STOCK_INTRO, SERVICES } = window.LMM;
   const OTHER = { en: ["pt", "es"], es: ["pt", "en"], pt: ["en", "es"] };
   const SHORT = { en: "EN", es: "ES", pt: "PT" };
   const NAME = { en: "English", es: "Español", pt: "Português" };
@@ -168,9 +168,16 @@
       </article>`).join("");
 
     document.getElementById("photos-head").innerHTML = `<h2>${t.photosTitle}</h2><p class="muted">${t.photosLede}</p>`;
-    document.getElementById("gallery").innerHTML = GALLERY.map(
-      (p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`,
-    ).join("");
+    const aisles = GALLERY_AISLES || GALLERY;
+    const closeups = GALLERY_CLOSEUPS || [];
+    const aislesTitle = document.getElementById("photos-aisles-title");
+    const closeTitle = document.getElementById("photos-close-title");
+    if (aislesTitle) aislesTitle.textContent = t.photosAislesTitle || t.photosTitle;
+    if (closeTitle) closeTitle.textContent = t.photosCloseTitle || "";
+    const aislesEl = document.getElementById("gallery-aisles") || document.getElementById("gallery");
+    if (aislesEl) aislesEl.innerHTML = aisles.map((p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`).join("");
+    const closeEl = document.getElementById("gallery-close");
+    if (closeEl) closeEl.innerHTML = closeups.map((p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`).join("");
 
     document.getElementById("reviews-head").innerHTML =
       `<p class="kicker" style="color:var(--primary);margin:0">${t.reviewsOnGoogle}</p><h2 style="margin-top:.75rem">${t.reviewsTitle}</h2>`;
