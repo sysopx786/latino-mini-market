@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { STOCK, STOCK_INTRO, type StockCategory } from "@/lib/stock";
 import { useLang } from "@/lib/language";
+import { AskShop } from "@/components/ask-shop";
 
 const ICONS: Record<string, LucideIcon> = {
   produce: Leaf,
@@ -27,6 +28,7 @@ export function StockGuide() {
       <div className="max-w-2xl rounded-xl bg-surface/92 p-6 shadow-border backdrop-blur-sm sm:p-8">
         <h3 className="font-display text-2xl font-semibold sm:text-3xl">{STOCK_INTRO.title[lang]}</h3>
         <p className="mt-3 text-muted">{STOCK_INTRO.lede[lang]}</p>
+        <AskShop />
       </div>
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         {STOCK.map((category) => (

@@ -21,6 +21,8 @@
   --color-call-fg: #ffffff;
   --color-sms: #3b82f6;
   --color-sms-fg: #ffffff;
+  --color-ask: #3d8f88;
+  --color-ask-fg: #f4fffd;
   --color-google: #fbbc04;
   --color-google-empty: #e8eaed;
   --color-card: #ffffff;
@@ -78,6 +80,10 @@
   img {
     outline: 1px solid rgb(28 18 12 / 0.1);
     outline-offset: -1px;
+  }
+
+  body.lightbox-open [data-dock] {
+    display: none;
   }
 
   :focus-visible {

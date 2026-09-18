@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" translate="no" class="notranslate">
-  <!-- latino-mini-market pages 20260918c -->
+  <!-- latino-mini-market pages 20260918d -->
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -42,14 +42,14 @@
       content="Hispanic, American, and Brazilian grocery on Bridge Street. SNAP/EBT welcome. Open 9 AM–9 PM daily."
     />
     <meta name="twitter:image" content="https://sysopx786.github.io/latino-mini-market/og.jpg" />
-    <link rel="preload" as="image" href="images/sign.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="images/sign-hero.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
     />
-    <link rel="stylesheet" href="styles.css?v=20260918c" />
+    <link rel="stylesheet" href="styles.css?v=20260918h" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -111,6 +111,9 @@
         </a>
         <nav id="nav" class="nav" aria-label="Primary"></nav>
         <div id="status" class="status"></div>
+        <button id="ask-btn" class="ask-btn" type="button" aria-label="Ask">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+        </button>
         <button id="menu-btn" class="menu-btn" type="button" aria-label="Menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
@@ -161,7 +164,25 @@
 
     <footer class="footer wrap" id="footer"></footer>
     <div class="dock"><div class="dock-row" id="dock"></div></div>
-    <script src="data.js?v=20260918c"></script>
-    <script src="app.js?v=20260918c"></script>
+    <div id="lightbox" hidden>
+      <div class="lb-bar">
+        <p id="lb-count"></p>
+        <button id="lb-close" class="lb-close" type="button" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="lb-stage" id="lb-stage">
+        <button id="lb-prev" class="lb-nav lb-prev" type="button" aria-label="Previous">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18 9 12l6-6"/></svg>
+        </button>
+        <img id="lb-img" alt="" />
+        <button id="lb-next" class="lb-nav lb-next" type="button" aria-label="Next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+      <div class="lb-cap"><div id="lb-desc"></div></div>
+    </div>
+    <script src="data.js?v=20260918h"></script>
+    <script src="app.js?v=20260918h"></script>
   </body>
 </html>

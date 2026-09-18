@@ -48,7 +48,7 @@ export function StickyDock() {
   const options = otherLangs(lang);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-primary-fg/15 bg-fg/95 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md">
+    <div data-dock className="fixed inset-x-0 bottom-0 z-50 border-t border-primary-fg/15 bg-fg/95 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md">
       <div className="mx-auto grid max-w-lg grid-cols-4 items-center justify-items-center">
         {options.map((option) => (
           <button

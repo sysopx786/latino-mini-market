@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { House, MapPin, Menu, MessageSquare, Navigation, Phone, X } from "lucide-react";
+import { House, MapPin, Menu, MessageSquare, Navigation, Phone, Sparkles, X } from "lucide-react";
 import { BUSINESS, getShopStatus } from "@/lib/business";
 import { t } from "@/lib/copy";
+import { openAsk } from "@/lib/ask";
 import { useLang } from "@/lib/language";
 import { cn } from "@/lib/utils";
 import { GoogleG, GoogleStars } from "@/components/brand-marks";
@@ -92,6 +93,18 @@ export function SiteHeader() {
 
         <StatusTablet className="ml-auto" />
 
+        <button
+          type="button"
+          onClick={() => {
+            setOpen(false);
+            openAsk();
+          }}
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ask text-ask-fg shadow-sm hover:brightness-110"
+          aria-label={copy.askLabel}
+        >
+          <Sparkles className="size-5" />
+        </button>
+
         <a
           href={`tel:${BUSINESS.phoneTel}`}
           aria-label={`${copy.call} ${BUSINESS.phoneDisplay}`}
@@ -152,6 +165,18 @@ export function SiteHeader() {
               {link.key === "navReviews" ? <GoogleStars count={5} className="ml-1 flex gap-px" /> : null}
             </a>
           ))}
+
+          <button
+            type="button"
+            className="mt-1 flex min-h-11 items-center gap-2 rounded-lg bg-fg px-3 text-left text-base font-medium text-primary-fg"
+            onClick={() => {
+              setOpen(false);
+              openAsk();
+            }}
+          >
+            <Sparkles className="size-4 text-ask" />
+            {copy.askLabel}
+          </button>
 
           <div className="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-4">
             <a

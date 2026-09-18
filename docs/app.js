@@ -19,6 +19,7 @@
   };
   let lang = readLang();
   let showAll = false;
+  let askQ = "";
 
   function clockLabel(hour) {
     return new Intl.DateTimeFormat("en-US", { hour: "numeric", hour12: true }).format(
@@ -53,6 +54,131 @@
     return `<img src="${srcOf(src)}" alt="${esc(alt)}" decoding="async" ${extra || 'loading="lazy"'}>`;
   }
 
+  function photoList() {
+    return [...(GALLERY_AISLES || GALLERY || []), ...(GALLERY_CLOSEUPS || [])];
+  }
+
+  let lbI = 0;
+  function paintLightbox() {
+    const list = photoList();
+    const p = list[lbI];
+    const box = document.getElementById("lightbox");
+    if (!p || !box) return;
+    const t = COPY[lang];
+    document.getElementById("lb-count").textContent = `${lbI + 1} / ${list.length}`;
+    const img = document.getElementById("lb-img");
+    img.src = srcOf(p.src);
+    img.alt = p.alt[lang];
+    document.getElementById("lb-desc").innerHTML =
+      `<p class="lb-title">${esc(p.alt[lang])}</p><p>${esc((p.desc && p.desc[lang]) || p.alt[lang])}</p>${photoChipsHtml(p)}`;
+    document.getElementById("lb-close").setAttribute("aria-label", t.lightboxClose || "Close");
+    document.getElementById("lb-prev").setAttribute("aria-label", t.lightboxPrev || "Previous");
+    document.getElementById("lb-next").setAttribute("aria-label", t.lightboxNext || "Next");
+  }
+  function openLightbox(i) {
+    lbI = i;
+    const box = document.getElementById("lightbox");
+    box.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.body.classList.add("lightbox-open");
+    paintLightbox();
+  }
+  function closeLightbox() {
+    document.getElementById("lightbox").hidden = true;
+    document.body.style.overflow = "";
+    document.body.classList.remove("lightbox-open");
+  }
+  function stepLightbox(dir) {
+    const list = photoList();
+    lbI = (lbI + dir + list.length) % list.length;
+    paintLightbox();
+  }
+
+  function fold(s) {
+    return String(s || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9ñ\s/-]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+  function allItems() {
+    const out = [];
+    (STOCK || []).forEach((cat) => {
+      (cat.groups || []).forEach((g) => {
+        (g.items || []).forEach((item) => out.push({ name: item, category: cat.title, categoryId: cat.id }));
+      });
+    });
+    return out;
+  }
+  function searchStock(q) {
+    const n = fold(q);
+    if (n.length < 2) return [];
+    const hits = [];
+    const seen = new Set();
+    allItems().forEach((item) => {
+      const names = [item.name.en, item.name.es, item.name.pt].map(fold);
+      if (names.some((name) => name.includes(n) || (n.includes(name) && name.length >= 5))) {
+        if (!seen.has(item.name.en)) {
+          seen.add(item.name.en);
+          hits.push(item);
+        }
+      }
+    });
+    return hits.slice(0, 12);
+  }
+  function photoChipsHtml(p) {
+    const t = COPY[lang];
+    const hay = fold([p.alt?.en, p.alt?.es, p.alt?.pt, p.desc?.en, p.desc?.es, p.desc?.pt].join(" "));
+    const hits = [];
+    const seen = new Set();
+    allItems().forEach((item) => {
+      const names = [item.name.en, item.name.es, item.name.pt].map(fold);
+      if (names.some((name) => name.length >= 4 && hay.includes(name)) && !seen.has(item.name.en)) {
+        seen.add(item.name.en);
+        hits.push(item);
+      }
+    });
+    const top = hits.slice(0, 8);
+    if (!top.length) return "";
+    return `<div class="lb-chips"><p>${esc(t.askOnShelf || "")}</p><ul class="pills">${top.map((i) => `<li><button type="button" data-shelf="${esc(i.name.en)}">${esc(i.name[lang])}</button></li>`).join("")}</ul></div>`;
+  }
+  function paintAsk(q) {
+    const t = COPY[lang];
+    const out = document.getElementById("ask-out");
+    const input = document.getElementById("ask-q");
+    if (input) input.value = q;
+    if (!out) return;
+    const n = fold(q);
+    if (n.length < 2) {
+      out.innerHTML = "";
+      return;
+    }
+    const items = searchStock(q);
+    let text = t.askHint || "";
+    if (["hour", "horario", "open", "abierto", "aberto", "close", "cerrad", "fechad"].some((k) => n.includes(k))) {
+      const open = shopOpen();
+      const time = clockLabel(open ? B.closeHour : B.openHour);
+      text = open ? `${t.openNow} — ${t.closesAt} ${time}.` : `${t.closedNow} — ${t.opensAt} ${time}.`;
+    } else if (["ebt", "snap", "cupones"].some((k) => n.includes(k))) {
+      text = lang === "en"
+        ? "Yes. SNAP / EBT is welcome, plus Visa, Mastercard, Amex, and Discover."
+        : lang === "pt"
+          ? "Sim. Aceitamos SNAP / EBT, e também Visa, Mastercard, Amex e Discover."
+          : "Sí. Aceptamos SNAP / EBT, y también Visa, Mastercard, Amex y Discover.";
+    } else if (items.length) {
+      text = lang === "en"
+        ? `On the list — ${items.length} match${items.length === 1 ? "" : "es"}. Come by the shop.`
+        : lang === "pt"
+          ? `Na lista — ${items.length} correspondência${items.length === 1 ? "" : "s"}. Venha à loja.`
+          : `En la lista — ${items.length} coincidencia${items.length === 1 ? "" : "s"}. Pasa por la tienda.`;
+    } else {
+      text = (t.askEmpty || t.askHint || "") + " " + B.phoneDisplay;
+    }
+    out.innerHTML = `<p>${esc(text)}</p>${items.length ? `<ul class="pills" style="margin-top:.75rem">${items.map((i) => `<li>${esc(i.name[lang])}</li>`).join("")}</ul>` : ""}`;
+  }
+
   function stars() {
     return `<span class="stars" aria-hidden="true">${"★".repeat(5)}</span>`;
   }
@@ -68,6 +194,8 @@
     document.getElementById("status").className = "status" + (open ? "" : " closed");
     document.getElementById("status").innerHTML =
       `<span class="status-dot"></span><span>${open ? t.open : t.closed}</span><span>${open ? t.closesAt : t.opensAt} ${time}</span>`;
+    const askBtn = document.getElementById("ask-btn");
+    if (askBtn) askBtn.setAttribute("aria-label", t.askLabel || "Ask");
 
     document.getElementById("nav").innerHTML = [
       ["#shop", t.navShop],
@@ -95,7 +223,8 @@
       <div class="hero-grid">
         <div class="hero-photo">
           ${B.femaleOwned ? `<p class="owned-hero">${t.owned}</p>` : ""}
-          <div class="sign">${imgTag("images/sign.webp", t.signAlt, 'fetchpriority="high" width="680" height="510"')}</div>
+          <div class="sign">${imgTag("images/sign-hero.webp", t.signAlt, 'fetchpriority="high" width="1200" height="360"')}</div>
+          <div class="sign hero-entrance" style="margin-top:.75rem">${imgTag("images/entrance.webp", (GALLERY.find((p) => String(p.src).includes("entrance.webp")) || {}).alt?.[lang] || t.signAlt, 'width="680" height="510"')}</div>
         </div>
         <div class="hero-copy">
           <p class="kicker">${t.kicker}</p>
@@ -152,12 +281,19 @@
 
     document.getElementById("pantry-head").innerHTML =
       `<h3>${t.pantryShotsTitle}</h3><p class="muted">${t.pantryShotsLede}</p>`;
-    document.getElementById("pantry-shots").innerHTML = PRODUCT_SHOTS.map(
-      (p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`,
-    ).join("");
 
     document.getElementById("stock-intro").innerHTML =
-      `<h3>${STOCK_INTRO.title[lang]}</h3><p class="muted">${STOCK_INTRO.lede[lang]}</p>`;
+      `<h3>${STOCK_INTRO.title[lang]}</h3><p class="muted">${STOCK_INTRO.lede[lang]}</p>
+      <div class="ask" id="ask">
+        <p class="kicker" style="margin:0 0 .5rem">${t.askLabel || "Ask"}</p>
+        <form id="ask-form" class="ask-row">
+          <input id="ask-q" type="search" autocomplete="off" placeholder="${esc(t.askPlaceholder || "")}" value="${esc(askQ)}">
+          <button type="submit">${t.askGo || "Ask"}</button>
+        </form>
+        <ul class="pills ask-sug">${(window.LMM.ASK_SUGGESTIONS?.[lang] || ["EBT","Jarritos"]).map((s) => `<li><button type="button" data-ask="${esc(s)}">${esc(s)}</button></li>`).join("")}</ul>
+        <div id="ask-out"></div>
+      </div>`;
+    if (askQ) paintAsk(askQ);
     document.getElementById("stock").innerHTML = STOCK.map((cat) => `
       <article class="card">
         <h4>${cat.title[lang]}</h4>
@@ -174,10 +310,16 @@
     const closeTitle = document.getElementById("photos-close-title");
     if (aislesTitle) aislesTitle.textContent = t.photosAislesTitle || t.photosTitle;
     if (closeTitle) closeTitle.textContent = t.photosCloseTitle || "";
+    const tile = (p, i) => `<li><button type="button" class="g-open" data-i="${i}">${imgTag(p.src, p.alt[lang])}<span class="g-cap">${esc(p.alt[lang])}</span></button></li>`;
     const aislesEl = document.getElementById("gallery-aisles") || document.getElementById("gallery");
-    if (aislesEl) aislesEl.innerHTML = aisles.map((p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`).join("");
+    if (aislesEl) aislesEl.innerHTML = aisles.map((p, n) => tile(p, n)).join("");
     const closeEl = document.getElementById("gallery-close");
-    if (closeEl) closeEl.innerHTML = closeups.map((p) => `<li>${imgTag(p.src, p.alt[lang])}</li>`).join("");
+    if (closeEl) closeEl.innerHTML = closeups.map((p, n) => tile(p, aisles.length + n)).join("");
+    const pantryEl = document.getElementById("pantry-shots");
+    if (pantryEl && PRODUCT_SHOTS) {
+      pantryEl.innerHTML = PRODUCT_SHOTS.map((p) => `<li>${imgTag(p.src, p.alt[lang])}<p class="g-cap">${esc(p.alt[lang])}</p></li>`).join("");
+    }
+    if (document.getElementById("lightbox") && !document.getElementById("lightbox").hidden) paintLightbox();
 
     document.getElementById("reviews-head").innerHTML =
       `<p class="kicker" style="color:var(--primary);margin:0">${t.reviewsOnGoogle}</p><h2 style="margin-top:.75rem">${t.reviewsTitle}</h2>`;
@@ -239,6 +381,11 @@
   document.getElementById("menu-btn").addEventListener("click", () => {
     document.getElementById("drawer").classList.toggle("open");
   });
+  document.getElementById("ask-btn")?.addEventListener("click", () => {
+    document.getElementById("drawer")?.classList.remove("open");
+    document.getElementById("ask")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.setTimeout(() => document.getElementById("ask-q")?.focus(), 280);
+  });
   document.getElementById("drawer").addEventListener("click", (e) => {
     if (e.target.closest("[data-close]") || (e.target.closest("a") && !e.target.closest(".drawer-bar"))) {
       document.getElementById("drawer").classList.remove("open");
@@ -251,6 +398,60 @@
   document.getElementById("dock").addEventListener("click", (e) => {
     const btn = e.target.closest("[data-lang]");
     if (btn) setLang(btn.getAttribute("data-lang"));
+  });
+  document.addEventListener("submit", (e) => {
+    if (e.target && e.target.id === "ask-form") {
+      e.preventDefault();
+      askQ = document.getElementById("ask-q")?.value || "";
+      paintAsk(askQ);
+    }
+  });
+  document.addEventListener("click", (e) => {
+    const sug = e.target.closest("[data-ask]");
+    if (sug) {
+      askQ = sug.getAttribute("data-ask") || "";
+      paintAsk(askQ);
+    }
+    const shelf = e.target.closest("[data-shelf]");
+    if (shelf) {
+      askQ = shelf.getAttribute("data-shelf") || "";
+      closeLightbox();
+      paintAsk(askQ);
+      document.getElementById("stock")?.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+  document.getElementById("photos").addEventListener("click", (e) => {
+    const btn = e.target.closest(".g-open");
+    if (btn) openLightbox(Number(btn.getAttribute("data-i")));
+  });
+  document.getElementById("lb-close").addEventListener("click", closeLightbox);
+  document.getElementById("lightbox").addEventListener("click", (e) => {
+    if (e.target.id === "lightbox") closeLightbox();
+  });
+  document.getElementById("lb-prev").addEventListener("click", (e) => {
+    e.stopPropagation();
+    stepLightbox(-1);
+  });
+  document.getElementById("lb-next").addEventListener("click", (e) => {
+    e.stopPropagation();
+    stepLightbox(1);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (document.getElementById("lightbox").hidden) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") stepLightbox(-1);
+    if (e.key === "ArrowRight") stepLightbox(1);
+  });
+  let touchX = null;
+  document.getElementById("lb-stage").addEventListener("touchstart", (e) => {
+    touchX = e.changedTouches[0]?.clientX ?? null;
+  }, { passive: true });
+  document.getElementById("lb-stage").addEventListener("touchend", (e) => {
+    if (touchX == null) return;
+    const dx = (e.changedTouches[0]?.clientX ?? touchX) - touchX;
+    if (dx > 50) stepLightbox(-1);
+    if (dx < -50) stepLightbox(1);
+    touchX = null;
   });
 
   document.documentElement.lang = lang;

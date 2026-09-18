@@ -4,7 +4,7 @@ import { MapPin, Navigation, Phone } from "lucide-react";
 import { BUSINESS, jsonLd, shopNow, WEEKDAYS } from "@/lib/business";
 import { DAY_LABELS, t } from "@/lib/copy";
 import { useLang } from "@/lib/language";
-import { DEPARTMENTS, GALLERY, GALLERY_AISLES, GALLERY_CLOSEUPS, PRODUCT_SHOTS } from "@/lib/photos";
+import { DEPARTMENTS, GALLERY, PRODUCT_SHOTS } from "@/lib/photos";
 import { REVIEWS } from "@/lib/reviews";
 import { SERVICES } from "@/lib/stock";
 import { GoogleG, GoogleStars } from "@/components/brand-marks";
@@ -13,6 +13,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StockGuide } from "@/components/stock-guide";
 import { StickyDock } from "@/components/sticky-dock";
+import { StorePhotos } from "@/components/photo-gallery";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -68,16 +69,29 @@ function Home() {
                     {copy.owned}
                   </p>
                 ) : null}
-                <div className="overflow-hidden rounded-lg bg-fg shadow-border ring-1 ring-primary-fg/20">
-                  <img
-                    src="/images/sign.webp"
-                    alt={copy.signAlt}
-                    width={680}
-                    height={510}
-                    fetchPriority="high"
-                    decoding="async"
-                    className="h-auto w-full"
-                  />
+                <div className="grid gap-3">
+                  <div className="overflow-hidden rounded-lg bg-fg shadow-border ring-1 ring-primary-fg/20">
+                    <img
+                      src="/images/sign-hero.webp"
+                      alt={copy.signAlt}
+                      width={1200}
+                      height={360}
+                      fetchPriority="high"
+                      decoding="async"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                  <div className="overflow-hidden rounded-lg bg-fg shadow-border ring-1 ring-primary-fg/20">
+                    <img
+                      src="/images/entrance.webp"
+                      alt={GALLERY.find((p) => p.src.endsWith("entrance.webp"))?.alt[lang] ?? copy.signAlt}
+                      width={680}
+                      height={510}
+                      loading="eager"
+                      decoding="async"
+                      className="aspect-[4/3] w-full object-cover object-[center_65%]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -205,7 +219,7 @@ function Home() {
               </div>
               <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
                 {PRODUCT_SHOTS.map((photo) => (
-                  <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
+                  <li key={photo.src} className="overflow-hidden rounded-xl bg-surface shadow-border">
                     <img
                       src={photo.src}
                       alt={photo.alt[lang]}
@@ -213,6 +227,7 @@ function Home() {
                       decoding="async"
                       className="aspect-[3/4] w-full object-cover object-bottom"
                     />
+                    <p className="line-clamp-2 min-h-10 px-2.5 py-2 text-xs font-medium leading-snug text-fg">{photo.alt[lang]}</p>
                   </li>
                 ))}
               </ul>
@@ -225,22 +240,7 @@ function Home() {
               <h2 className="font-display text-3xl font-semibold sm:text-4xl">{copy.photosTitle}</h2>
               <p className="mt-3 text-muted">{copy.photosLede}</p>
             </div>
-            <h3 className="mt-10 font-display text-2xl font-semibold text-primary-fg">{copy.photosAislesTitle}</h3>
-            <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {GALLERY_AISLES.map((photo) => (
-                <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
-                  <img src={photo.src} alt={photo.alt[lang]} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
-                </li>
-              ))}
-            </ul>
-            <h3 className="mt-12 font-display text-2xl font-semibold text-primary-fg">{copy.photosCloseTitle}</h3>
-            <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {GALLERY_CLOSEUPS.map((photo) => (
-                <li key={photo.src} className="overflow-hidden rounded-xl shadow-border">
-                  <img src={photo.src} alt={photo.alt[lang]} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
-                </li>
-              ))}
-            </ul>
+            <StorePhotos />
           </section>
 
           <ReviewsBlock />
