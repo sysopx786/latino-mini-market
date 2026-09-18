@@ -30,7 +30,7 @@ export function otherLangs(lang: Lang): Lang[] {
   return OTHER[lang];
 }
 
-const KEY = "lmm-lang";
+const KEY = "lmm-lang-v2";
 const EVENT = "lmm-lang";
 
 function readLang(): Lang {
@@ -40,7 +40,7 @@ function readLang(): Lang {
   } catch {
     /* ignore */
   }
-  return "en";
+  return "es";
 }
 
 function subscribe(onStoreChange: () => void) {
@@ -53,7 +53,7 @@ function subscribe(onStoreChange: () => void) {
 }
 
 export function useLang(): Lang {
-  return useSyncExternalStore(subscribe, readLang, () => "en");
+  return useSyncExternalStore(subscribe, readLang, () => "es");
 }
 
 export function setLang(lang: Lang) {

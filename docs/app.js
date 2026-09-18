@@ -9,13 +9,13 @@
     pt: '<svg viewBox="0 0 20 14" width="16" height="10" aria-hidden="true"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.4 18.6,7 10,12.6 1.4,7" fill="#fedf00"/><circle cx="10" cy="7" r="2.5" fill="#002776"/></svg>',
   };
 
-  const KEY = "lmm-lang";
+  const KEY = "lmm-lang-v2";
   const readLang = () => {
     try {
       const s = localStorage.getItem(KEY);
       if (s === "en" || s === "es" || s === "pt") return s;
     } catch (_) {}
-    return "en";
+    return "es";
   };
   let lang = readLang();
   let showAll = false;
