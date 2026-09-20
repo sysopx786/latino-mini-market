@@ -145,7 +145,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .pay-cards img { height: 2rem; width: auto; }
 .pay-cards img[alt="American Express"] { width: 2rem; height: 2rem; object-fit: cover; border-radius: 6px; }
 .video-grid { display: grid; gap: 1rem; margin-top: 1.5rem; }
-@media (min-width: 768px) { .video-grid { grid-template-columns: 1fr 1fr; } }
 .video-grid figure { margin: 0; overflow: hidden; border-radius: 16px; background: var(--fg); }
 .video-grid video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
 .video-grid figcaption { background: var(--surface); color: var(--fg); padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 600; }

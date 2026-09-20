@@ -119,7 +119,7 @@ export const PRODUCT_SHOTS: Photo[] = [
   },
 ];
 
-export const GALLERY_AISLES: Photo[] = [
+const PHOTO_AISLES_RAW: Photo[] = [
   {
     src: "/images/storefront.webp",
     alt: L(
@@ -343,7 +343,7 @@ export const GALLERY_AISLES: Photo[] = [
   },
 ];
 
-export const GALLERY_CLOSEUPS: Photo[] = [
+const PHOTO_CLOSE_RAW: Photo[] = [
   {
     src: "/images/produce-case.webp",
     alt: L(
@@ -663,4 +663,285 @@ export const GALLERY_CLOSEUPS: Photo[] = [
   },
 ];
 
-export const GALLERY: Photo[] = [...GALLERY_AISLES, ...GALLERY_CLOSEUPS];
+const PHOTO_MEATS_RAW: Photo[] = [
+  {
+    src: "/images/butcher-roast.webp",
+    alt: L(
+      "Butcher holding a fresh beef roast",
+      "Carnicero con un asado de res fresco",
+      "Açougueiro com um assado de vaca fresco",
+    ),
+    desc: L(
+      "Custom butcher cut: a large fresh beef roast held at the case. Ask for the cut you need.",
+      "Corte a pedido: un asado de res fresco en el mostrador. Pide el corte que necesites.",
+      "Corte por encomenda: um assado de vaca fresco no balcão. Peça o corte que precisa.",
+    ),
+  },
+  {
+    src: "/images/chicken-pans.webp",
+    alt: L(
+      "Fresh chicken — drums, thighs, and breasts",
+      "Pollo fresco — piernas, muslos y pechuga",
+      "Frango fresco — coxas, sobrecoxas e peito",
+    ),
+    desc: L(
+      "Carnicería chicken pans: drumsticks, thighs, whole pieces, and boneless breasts.",
+      "Bandejas de pollo: piernas, muslos, piezas enteras y pechuga deshuesada.",
+      "Tabuleiros de frango: coxas, sobrecoxas, peças inteiras e peito desossado.",
+    ),
+  },
+  {
+    src: "/images/pork-counter.webp",
+    alt: L(
+      "Pork loin, ribs, and marinated cuts",
+      "Lomo de cerdo, costillas y cortes en adobo",
+      "Lombo de porco, costelas e cortes temperados",
+    ),
+    desc: L(
+      "Pork loin, spare ribs, marinated pork with bay leaf, and pig trotters on the red butcher counter.",
+      "Lomo de cerdo, costillas, puerco en adobo con laurel y patas de cerdo en el mostrador rojo.",
+      "Lombo de porco, costelas, porco temperado com louro e pés de porco no balcão vermelho.",
+    ),
+  },
+  {
+    src: "/images/beef-packs.webp",
+    alt: L(
+      "Vacuum-packed beef and short ribs",
+      "Res al vacío y costilla corta",
+      "Carne de vaca a vácuo e short ribs",
+    ),
+    desc: L(
+      "Stacked vacuum-packed beef and short ribs at the meat counter.",
+      "Res y costilla corta empacadas al vacío en la carnicería.",
+      "Carne de vaca e short ribs embalados a vácuo no talho.",
+    ),
+  },
+];
+
+const PHOTO_BRAZIL_RAW: Photo[] = [
+  {
+    src: "/images/brazil-aisle.webp",
+    alt: L(
+      "Brazilian coffee, pasta, and pantry aisle",
+      "Pasillo brasileño de café, pasta y abarrotes",
+      "Corredor brasileiro de café, massa e mercearia",
+    ),
+    desc: L(
+      "From Brazil: 3 Corações and Caboclo coffee, Dona Benta and Renata pasta, doce de leite, coconut milk, Maguary, Neston, and Cerelac.",
+      "De Brasil: café 3 Corações y Caboclo, pasta Dona Benta y Renata, dulce de leche, leche de coco, Maguary, Neston y Cerelac.",
+      "Do Brasil: café 3 Corações e Caboclo, massa Dona Benta e Renata, doce de leite, leite de coco, Maguary, Neston e Cerelac.",
+    ),
+  },
+  {
+    src: "/images/brazil-juices.webp",
+    alt: L(
+      "Dafruta juices, Maguary, and Brazilian pasta",
+      "Jugos Dafruta, Maguary y pasta brasileña",
+      "Sumos Dafruta, Maguary e massa brasileira",
+    ),
+    desc: L(
+      "Dafruta and Maguary juices, Julimar noodles, canjica, fubá, milho, and Renata flour on the Brazilian bay.",
+      "Jugos Dafruta y Maguary, fideos Julimar, canjica, fubá, milho y harina Renata en el estante brasileño.",
+      "Sumos Dafruta e Maguary, macarrão Julimar, canjica, fubá, milho e farinha Renata na prateleira brasileira.",
+    ),
+  },
+  {
+    src: "/images/guarana.webp",
+    alt: L(
+      "Guaraná Antarctica 2-liter bottles",
+      "Guaraná Antarctica de 2 litros",
+      "Guaraná Antarctica de 2 litros",
+    ),
+    desc: L(
+      "Guaraná Antarctica — the Brazilian original soda, 2-liter bottles on the drink shelf.",
+      "Guaraná Antarctica — el refresco original de Brasil, botellas de 2 litros.",
+      "Guaraná Antarctica — o refrigerante original do Brasil, garrafas de 2 litros.",
+    ),
+  },
+  {
+    src: "/images/guarana-diet.webp",
+    alt: L(
+      "Guaraná Antarctica and Guaraná Diet",
+      "Guaraná Antarctica y Guaraná Diet",
+      "Guaraná Antarctica e Guaraná Diet",
+    ),
+    desc: L(
+      "Guaraná Antarctica original and Guaraná Antarctica Diet in the cooler.",
+      "Guaraná Antarctica original y Guaraná Antarctica Diet en el refrigerador.",
+      "Guaraná Antarctica original e Guaraná Antarctica Diet no frigorífico.",
+    ),
+  },
+  {
+    src: "/images/maguary.webp",
+    alt: L(
+      "Maguary peach and guava nectar",
+      "Néctar Maguary de durazno y guayaba",
+      "Néctar Maguary de pêssego e goiaba",
+    ),
+    desc: L(
+      "Maguary nectar cartons: peach (pêssego) and guava (goiaba).",
+      "Néctar Maguary: durazno (pêssego) y guayaba (goiaba).",
+      "Néctar Maguary: pêssego e goiaba.",
+    ),
+  },
+  {
+    src: "/images/catupiry.webp",
+    alt: L(
+      "Catupiry Brazilian soft cheese",
+      "Queso suave Catupiry de Brasil",
+      "Catupiry, requeijão cremoso",
+    ),
+    desc: L(
+      "Catupiry soft cheese — the Brazilian cream cheese in a pouch, 8.82 oz.",
+      "Queso suave Catupiry — el queso crema brasileño en bolsa, 8.82 oz.",
+      "Catupiry — o requeijão cremoso brasileiro em sachê, 8.82 oz.",
+    ),
+  },
+  {
+    src: "/images/requeijao.webp",
+    alt: L(
+      "Da Roça and Sabor Brasil requeijão",
+      "Requeijão Da Roça y Sabor Brasil",
+      "Requeijão Da Roça e Sabor Brasil",
+    ),
+    desc: L(
+      "Requeijão cremoso — Da Roça and Sabor Brasil cream cheese spread, 8.5 oz cups.",
+      "Requeijão cremoso — untables Da Roça y Sabor Brasil, vasos de 8.5 oz.",
+      "Requeijão cremoso — Da Roça e Sabor Brasil, copos de 8.5 oz.",
+    ),
+  },
+  {
+    src: "/images/queijo-minas.webp",
+    alt: L(
+      "Mineirão Minas farmer’s cheese",
+      "Queso Minas Mineirão",
+      "Queijo Minas Mineirão",
+    ),
+    desc: L(
+      "Sabor Brasil Mineirão — Minas farmer’s cheese (queijo minas), 28 oz wheel in the cooler.",
+      "Sabor Brasil Mineirão — queso fresco Minas (queijo minas), rueda de 28 oz.",
+      "Sabor Brasil Mineirão — queijo minas fresco, peça de 28 oz no frigorífico.",
+    ),
+  },
+  {
+    src: "/images/beijubom.webp",
+    alt: L(
+      "BeijuBom ready tapioca mix",
+      "Mezcla de tapioca BeijuBom",
+      "BeijuBom massa para tapioca",
+    ),
+    desc: L(
+      "BeijuBom massa pronta para tapioca — Brazilian cassava starch mix, 500 g.",
+      "BeijuBom masa lista para tapioca — almidón de yuca brasileño, 500 g.",
+      "BeijuBom massa pronta para tapioca — goma de mandioca, 500 g.",
+    ),
+  },
+];
+
+const bySrc = new Map(
+  [...PHOTO_AISLES_RAW, ...PHOTO_CLOSE_RAW, ...PHOTO_MEATS_RAW, ...PHOTO_BRAZIL_RAW].map((p) => [p.src, p]),
+);
+
+function pick(...files: string[]): Photo[] {
+  return files.map((file) => {
+    const photo = bySrc.get(`/images/${file}`);
+    if (!photo) throw new Error(`Missing gallery photo: ${file}`);
+    return photo;
+  });
+}
+
+export const GALLERY_OUTSIDE = pick("storefront.webp", "street.webp", "entrance.webp");
+
+export const GALLERY_AISLES = pick(
+  "aisle-wide.webp",
+  "aisle-laundry.webp",
+  "aisle-canned.webp",
+  "aisle-juice.webp",
+  "aisle-pasta.webp",
+  "aisle-coffee.webp",
+  "aisle.webp",
+  "aisle-drinks.webp",
+  "aisle-carts.webp",
+  "aisle-spices.webp",
+  "aisle-sauces.webp",
+  "rice-shelf.webp",
+  "snacks.webp",
+);
+
+export const GALLERY_PRODUCE = pick("produce-case.webp");
+
+export const GALLERY_MEATS = pick(
+  "butcher-roast.webp",
+  "chicken-pans.webp",
+  "pork-counter.webp",
+  "beef-packs.webp",
+  "butcher-wide.webp",
+  "deli-dietz.webp",
+  "frozen-wall.webp",
+  "frozen-goya.webp",
+  "drink-coolers.webp",
+  "cooler.webp",
+  "freezer.webp",
+);
+
+export const GALLERY_PRODUCTS = pick(
+  "tostadas.webp",
+  "pantry-mojo.webp",
+  "gel.webp",
+  "stock-jarritos.webp",
+  "stock-jarritos-shelf.webp",
+  "stock-pan-dulce.webp",
+);
+
+export const GALLERY_BRAZIL = pick(
+  "brazil-aisle.webp",
+  "brazil-juices.webp",
+  "guarana.webp",
+  "guarana-diet.webp",
+  "maguary.webp",
+  "catupiry.webp",
+  "requeijao.webp",
+  "queijo-minas.webp",
+  "beijubom.webp",
+  "sausage.webp",
+  "tapioca.webp",
+  "rice-bag.webp",
+  "peanuts.webp",
+  "soap.webp",
+  "stock-pao-de-queijo.webp",
+);
+
+export const GALLERY_MISC = pick(
+  "candles.webp",
+  "candles-aisle.webp",
+  "molcajetes.webp",
+  "molcajete.webp",
+  "steamer-pots.webp",
+  "pharmacy.webp",
+);
+
+export type GallerySection = {
+  id: string;
+  titleKey:
+    | "photosOutsideTitle"
+    | "photosAislesTitle"
+    | "photosProduceTitle"
+    | "photosMeatsTitle"
+    | "photosProductsTitle"
+    | "photosBrazilTitle"
+    | "photosMiscTitle";
+  photos: Photo[];
+};
+
+export const GALLERY_SECTIONS: GallerySection[] = [
+  { id: "outside", titleKey: "photosOutsideTitle", photos: GALLERY_OUTSIDE },
+  { id: "aisles", titleKey: "photosAislesTitle", photos: GALLERY_AISLES },
+  { id: "produce", titleKey: "photosProduceTitle", photos: GALLERY_PRODUCE },
+  { id: "meats", titleKey: "photosMeatsTitle", photos: GALLERY_MEATS },
+  { id: "products", titleKey: "photosProductsTitle", photos: GALLERY_PRODUCTS },
+  { id: "brazil", titleKey: "photosBrazilTitle", photos: GALLERY_BRAZIL },
+  { id: "misc", titleKey: "photosMiscTitle", photos: GALLERY_MISC },
+];
+
+export const GALLERY: Photo[] = GALLERY_SECTIONS.flatMap((s) => s.photos);
+

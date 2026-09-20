@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { t } from "@/lib/copy";
 import { useLang, type Lang } from "@/lib/language";
 import { chipsInPhoto } from "@/lib/ask";
-import { GALLERY, GALLERY_AISLES, GALLERY_CLOSEUPS, type Photo } from "@/lib/photos";
+import { GALLERY, GALLERY_SECTIONS, type Photo } from "@/lib/photos";
 
 function PhotoGrid({
   photos,
@@ -191,10 +191,17 @@ export function StorePhotos() {
 
   return (
     <>
-      <h3 className="mt-10 font-display text-2xl font-semibold text-primary-fg">{copy.photosAislesTitle}</h3>
-      <PhotoGrid photos={GALLERY_AISLES} offset={0} lang={lang} onOpen={setOpen} />
-      <h3 className="mt-12 font-display text-2xl font-semibold text-primary-fg">{copy.photosCloseTitle}</h3>
-      <PhotoGrid photos={GALLERY_CLOSEUPS} offset={GALLERY_AISLES.length} lang={lang} onOpen={setOpen} />
+      {GALLERY_SECTIONS.map((section, i) => {
+        const offset = GALLERY_SECTIONS.slice(0, i).reduce((n, s) => n + s.photos.length, 0);
+        return (
+          <div key={section.id}>
+            <h3 className={`${i === 0 ? "mt-10" : "mt-12"} font-display text-2xl font-semibold text-primary-fg`}>
+              {copy[section.titleKey]}
+            </h3>
+            <PhotoGrid photos={section.photos} offset={offset} lang={lang} onOpen={setOpen} />
+          </div>
+        );
+      })}
       {open !== null ? (
         <Lightbox
           photos={GALLERY}

@@ -1,5 +1,5 @@
 (() => {
-  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, GALLERY_AISLES, GALLERY_CLOSEUPS, PRODUCT_SHOTS, STOCK, STOCK_INTRO, SERVICES } = window.LMM;
+  const { COPY, DAY_LABELS, BUSINESS: B, REVIEWS, DEPARTMENTS, GALLERY, GALLERY_SECTIONS, PRODUCT_SHOTS, STOCK, STOCK_INTRO, SERVICES } = window.LMM;
   const OTHER = { en: ["pt", "es"], es: ["pt", "en"], pt: ["en", "es"] };
   const SHORT = { en: "EN", es: "ES", pt: "PT" };
   const NAME = { en: "English", es: "Español", pt: "Português" };
@@ -55,7 +55,8 @@
   }
 
   function photoList() {
-    return [...(GALLERY_AISLES || GALLERY || []), ...(GALLERY_CLOSEUPS || [])];
+    if (GALLERY_SECTIONS?.length) return GALLERY_SECTIONS.flatMap((s) => s.photos || []);
+    return GALLERY || [];
   }
 
   let lbI = 0;
@@ -253,15 +254,11 @@
         </ul>
       </div>`;
 
-    document.getElementById("video-head").innerHTML = `<h2>${t.videoTitle}</h2>`;
+    document.getElementById("video-head").innerHTML = `<h2>${t.videoTitle}</h2><p class="muted">${t.videoHero || t.videoApproach || ""}</p>`;
     document.getElementById("videos").innerHTML = `
       <figure>
-        <video src="videos/entrance-approach.mp4" poster="images/storefront.webp" controls playsinline preload="none" title="${esc(t.videoApproach)}"></video>
-        <figcaption>${t.videoApproach}</figcaption>
-      </figure>
-      <figure>
-        <video src="videos/entrance-walkin.mp4" poster="images/entrance.webp" controls playsinline preload="none" title="${esc(t.videoWalkin)}"></video>
-        <figcaption>${t.videoWalkin}</figcaption>
+        <video src="videos/hero-walkin.mp4?v=3" poster="images/hero-walkin-poster.jpg?v=3" autoplay muted loop playsinline controls preload="metadata" title="${esc(t.videoHero || t.videoTitle)}"></video>
+        <figcaption>${t.videoHero || t.videoWalkin}</figcaption>
       </figure>`;
 
     document.getElementById("about").innerHTML = `
@@ -304,17 +301,17 @@
       </article>`).join("");
 
     document.getElementById("photos-head").innerHTML = `<h2>${t.photosTitle}</h2><p class="muted">${t.photosLede}</p>`;
-    const aisles = GALLERY_AISLES || GALLERY;
-    const closeups = GALLERY_CLOSEUPS || [];
-    const aislesTitle = document.getElementById("photos-aisles-title");
-    const closeTitle = document.getElementById("photos-close-title");
-    if (aislesTitle) aislesTitle.textContent = t.photosAislesTitle || t.photosTitle;
-    if (closeTitle) closeTitle.textContent = t.photosCloseTitle || "";
     const tile = (p, i) => `<li><button type="button" class="g-open" data-i="${i}">${imgTag(p.src, p.alt[lang])}<span class="g-cap">${esc(p.alt[lang])}</span></button></li>`;
-    const aislesEl = document.getElementById("gallery-aisles") || document.getElementById("gallery");
-    if (aislesEl) aislesEl.innerHTML = aisles.map((p, n) => tile(p, n)).join("");
-    const closeEl = document.getElementById("gallery-close");
-    if (closeEl) closeEl.innerHTML = closeups.map((p, n) => tile(p, aisles.length + n)).join("");
+    const sectionsEl = document.getElementById("gallery-sections");
+    if (sectionsEl) {
+      const sections = GALLERY_SECTIONS || [];
+      let offset = 0;
+      sectionsEl.innerHTML = sections.map((s) => {
+        const html = `<h3 class="photos-sub">${esc(t[s.titleKey] || s.id)}</h3><ul class="gallery tight">${(s.photos || []).map((p, n) => tile(p, offset + n)).join("")}</ul>`;
+        offset += (s.photos || []).length;
+        return html;
+      }).join("");
+    }
     const pantryEl = document.getElementById("pantry-shots");
     if (pantryEl && PRODUCT_SHOTS) {
       pantryEl.innerHTML = PRODUCT_SHOTS.map((p) => `<li>${imgTag(p.src, p.alt[lang])}<p class="g-cap">${esc(p.alt[lang])}</p></li>`).join("");

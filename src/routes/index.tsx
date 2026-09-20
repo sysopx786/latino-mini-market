@@ -143,35 +143,25 @@ function Home() {
           <section id="entrance" className="scroll-mt-20 mx-auto max-w-6xl px-4 py-10 sm:px-6">
             <div className="max-w-xl rounded-xl bg-surface/92 p-6 shadow-border backdrop-blur-sm">
               <h2 className="font-display text-3xl font-semibold sm:text-4xl">{copy.videoTitle}</h2>
+              <p className="mt-2 text-muted">{copy.videoHero}</p>
             </div>
-            <div className="mt-6 grid gap-4 lg:grid-cols-2">
-              <figure className="overflow-hidden rounded-xl bg-fg shadow-border">
-                <video
-                  className="aspect-video w-full outline-none"
-                  src="/videos/entrance-approach.mp4"
-                  poster="/images/storefront.webp"
-                  controls
-                  playsInline
-                  preload="none"
-                />
-                <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
-                  {copy.videoApproach}
-                </figcaption>
-              </figure>
-              <figure className="overflow-hidden rounded-xl bg-fg shadow-border">
-                <video
-                  className="aspect-video w-full outline-none"
-                  src="/videos/entrance-walkin.mp4"
-                  poster="/images/entrance.webp"
-                  controls
-                  playsInline
-                  preload="none"
-                />
-                <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
-                  {copy.videoWalkin}
-                </figcaption>
-              </figure>
-            </div>
+            <figure className="mt-6 overflow-hidden rounded-xl bg-fg shadow-border">
+              <video
+                className="aspect-video w-full outline-none"
+                src="/videos/hero-walkin.mp4?v=3"
+                poster="/images/hero-walkin-poster.jpg?v=3"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                title={copy.videoHero}
+              />
+              <figcaption className="bg-surface px-4 py-3 text-sm font-medium text-fg">
+                {copy.videoHero}
+              </figcaption>
+            </figure>
           </section>
 
           <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2">

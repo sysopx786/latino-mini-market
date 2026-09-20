@@ -32,10 +32,8 @@ export const BUSINESS = {
     "https://www.google.com/maps/dir/?api=1&destination=317+Bridge+Street,+Phoenixville,+PA+19460",
   mapsEmbed:
     "https://www.openstreetmap.org/export/embed.html?bbox=-75.5218%2C40.1318%2C-75.5098%2C40.1356&layer=mapnik&marker=40.1336%2C-75.5159",
-  googleReviewsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Latinominimarket+317+Bridge+St+Phoenixville+PA+19460",
-  googleWriteReviewUrl:
-    "https://www.google.com/maps/search/?api=1&query=Latinominimarket+317+Bridge+St+Phoenixville+PA+19460",
+  googleReviewsUrl: "https://maps.app.goo.gl/tgNLq4BNrNPGxBVF7?g_st=ac",
+  googleWriteReviewUrl: "https://maps.app.goo.gl/tgNLq4BNrNPGxBVF7?g_st=ac",
   timeZone: "America/New_York",
   openHour: 9,
   closeHour: 21,
